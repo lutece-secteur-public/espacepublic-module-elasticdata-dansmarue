@@ -54,13 +54,13 @@ public class SignalementDAO
 
     public Collection<DataObject> selectSignalementDataObjectsList( Plugin plugin )
     {
-        Collection<DataObject> listSignalementDataObjects = new ArrayList<>();
+        Collection<DataObject> listSignalementDataObjects = new ArrayList<>( );
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin );
-        daoUtil.executeQuery();
+        daoUtil.executeQuery( );
 
-        while( daoUtil.next() )
+        while ( daoUtil.next( ) )
         {
-            SignalementDataObject signalementDataObject = new SignalementDataObject();
+            SignalementDataObject signalementDataObject = new SignalementDataObject( );
 
             signalementDataObject.setId( daoUtil.getInt( 1 ) );
             signalementDataObject.setDateCreation( daoUtil.getDate( 2 ) );
@@ -71,7 +71,7 @@ public class SignalementDAO
             listSignalementDataObjects.add( signalementDataObject );
         }
 
-        daoUtil.free();
+        daoUtil.free( );
 
         return listSignalementDataObjects;
     }

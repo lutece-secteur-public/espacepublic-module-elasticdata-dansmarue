@@ -40,104 +40,118 @@ import java.sql.Date;
 /**
  * SignalementDataObject
  */
-public class SignalementDataObject extends AbstractDataObject 
+public class SignalementDataObject extends AbstractDataObject
 {
-        // Variables declarations 
-        private int _nId;
-        private Date _dateDateCreation;
-        private Date _dateDatePrevueTraitement;
-        private String _strLocation;
-        private String _strCategory;
-    
-    
-       /**
-        * Returns the Id
-        * @return The Id
-        */ 
-        public int getId()
-        {
-            return _nId;
-        }
-    
-       /**
-        * Sets the Id
-        * @param nId The Id
-        */ 
-        public void setId( int nId )
-        {
-            _nId = nId;
-        }
-    
-       /**
-        * Returns the DateCreation
-        * @return The DateCreation
-        */ 
-        public Date getDateCreation()
-        {
-            return _dateDateCreation;
-        }
-    
-       /**
-        * Sets the DateCreation
-        * @param dateDateCreation The DateCreation
-        */ 
-        public void setDateCreation( Date dateDateCreation )
-        {
-            _dateDateCreation = dateDateCreation;
-        }
-    
-       /**
-        * Returns the DatePrevueTraitement
-        * @return The DatePrevueTraitement
-        */ 
-        public Date getDatePrevueTraitement()
-        {
-            return _dateDatePrevueTraitement;
-        }
-    
-       /**
-        * Sets the DatePrevueTraitement
-        * @param dateDatePrevueTraitement The DatePrevueTraitement
-        */ 
-        public void setDatePrevueTraitement( Date dateDatePrevueTraitement )
-        {
-            _dateDatePrevueTraitement = dateDatePrevueTraitement;
-        }
-    
-       /**
-        * Returns the Location
-        * @return The Location
-        */ 
-        public String getLocation()
-        {
-            return _strLocation;
-        }
-    
-       /**
-        * Sets the Location
-        * @param strLocation The Location
-        */ 
-        public void setLocation( String strLocation )
-        {
-            _strLocation = strLocation;
-        }
-    
-       /**
-        * Returns the Category
-        * @return The Category
-        */ 
-        public String getCategory()
-        {
-            return _strCategory;
-        }
-    
-       /**
-        * Sets the Category
-        * @param strCategory The Category
-        */ 
-        public void setCategory( String strCategory )
-        {
-            _strCategory = strCategory;
-        }
+    // Variables declarations
+    private int _nId;
+    private Date _dateDateCreation;
+    private Date _dateDatePrevueTraitement;
+    private String _strLocation;
+    private String _strCategory;
+
+    /**
+     * Returns the Id
+     * 
+     * @return The Id
+     */
+    public int getId( )
+    {
+        return _nId;
+    }
+
+    /**
+     * Sets the Id
+     * 
+     * @param nId
+     *            The Id
+     */
+    public void setId( int nId )
+    {
+        _nId = nId;
+    }
+
+    /**
+     * Returns the DateCreation
+     * 
+     * @return The DateCreation
+     */
+    public Date getDateCreation( )
+    {
+        return _dateDateCreation;
+    }
+
+    /**
+     * Sets the DateCreation
+     * 
+     * @param dateDateCreation
+     *            The DateCreation
+     */
+    public void setDateCreation( Date dateDateCreation )
+    {
+        _dateDateCreation = dateDateCreation;
+    }
+
+    /**
+     * Returns the DatePrevueTraitement
+     * 
+     * @return The DatePrevueTraitement
+     */
+    public Date getDatePrevueTraitement( )
+    {
+        return _dateDatePrevueTraitement;
+    }
+
+    /**
+     * Sets the DatePrevueTraitement
+     * 
+     * @param dateDatePrevueTraitement
+     *            The DatePrevueTraitement
+     */
+    public void setDatePrevueTraitement( Date dateDatePrevueTraitement )
+    {
+        _dateDatePrevueTraitement = dateDatePrevueTraitement;
+    }
+
+    /**
+     * Returns the Location
+     * 
+     * @return The Location
+     */
+    public String getLocation( )
+    {
+        return _strLocation;
+    }
+
+    /**
+     * Sets the Location
+     * 
+     * @param strLocation
+     *            The Location
+     */
+    public void setLocation( String strLocation )
+    {
+        _strLocation = strLocation;
+    }
+
+    /**
+     * Returns the Category
+     * 
+     * @return The Category
+     */
+    public String getCategory( )
+    {
+        return _strCategory;
+    }
+
+    /**
+     * Sets the Category
+     * 
+     * @param strCategory
+     *            The Category
+     */
+    public void setCategory( String strCategory )
+    {
+        _strCategory = strCategory;
+    }
 
 }

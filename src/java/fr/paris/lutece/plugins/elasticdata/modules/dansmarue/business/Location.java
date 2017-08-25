@@ -32,53 +32,56 @@
  * License 1.0
  */
 
-
 package fr.paris.lutece.plugins.elasticdata.modules.dansmarue.business;
 
 /**
  * Location
  */
-public class Location 
+public class Location
 {
-    // Variables declarations 
+    // Variables declarations
     private String _strLat;
     private String _strLon;
-    
-    
-       /**
-        * Returns the Lat
-        * @return The Lat
-        */ 
-    public String getLat()
+
+    /**
+     * Returns the Lat
+     * 
+     * @return The Lat
+     */
+    public String getLat( )
     {
         return _strLat;
     }
-    
-       /**
-        * Sets the Lat
-        * @param strLat The Lat
-        */ 
+
+    /**
+     * Sets the Lat
+     * 
+     * @param strLat
+     *            The Lat
+     */
     public void setLat( String strLat )
     {
         _strLat = strLat;
     }
-    
-       /**
-        * Returns the Lon
-        * @return The Lon
-        */ 
-    public String getLon()
+
+    /**
+     * Returns the Lon
+     * 
+     * @return The Lon
+     */
+    public String getLon( )
     {
         return _strLon;
     }
-    
-       /**
-        * Sets the Lon
-        * @param strLon The Lon
-        */ 
+
+    /**
+     * Sets the Lon
+     * 
+     * @param strLon
+     *            The Lon
+     */
     public void setLon( String strLon )
     {
         _strLon = strLon;
     }
- }
-
+}
