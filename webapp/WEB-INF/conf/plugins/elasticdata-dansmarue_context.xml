@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd" >
+       
+       
+       <bean id="elasticdata-dansmarue.demandDataSource" class="fr.paris.lutece.plugins.elasticdata.modules.dansmarue.business.SignalementDataSource" >
+           <property name="id" value="DemandDataSource" />
+           <property name="name" value="Base des signalements DansMaRue" />
+           <property name="targetIndexName" value="signalements" />
+           <property name="dataType" value="signalement" />
+       </bean>
+
+
+</beans>
