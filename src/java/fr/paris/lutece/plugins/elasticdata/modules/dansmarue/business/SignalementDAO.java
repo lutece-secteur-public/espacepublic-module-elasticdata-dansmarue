@@ -50,7 +50,7 @@ public class SignalementDAO
             + " INNER JOIN signalement_adresse a ON s.id_signalement = a.fk_id_signalement "
             + " INNER JOIN signalement_type_signalement ts ON ts.id_type_signalement = s.fk_id_type_signalement "
             + " LEFT JOIN signalement_type_signalement tss ON ts.fk_id_type_signalement = tss.id_type_signalement "
-            + " LEFT JOIN signalement_type_signalement tsss ON tss.fk_id_type_signalement = tsss.id_type_signaleme;";
+            + " LEFT JOIN signalement_type_signalement tsss ON tss.fk_id_type_signalement = tsss.id_type_signalement;";
 
     public Collection<DataObject> selectSignalementDataObjectsList( Plugin plugin )
     {
