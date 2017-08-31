@@ -45,12 +45,20 @@ import java.util.Collection;
 public class SignalementDAO
 {
 
-    private static final String SQL_QUERY_SELECTALL = "SELECT id_signalement, date_creation, heure_creation, date_prevue_traitement, ST_AsText(geom), ts.libelle, tss.libelle as libelleparent, tsss.libelle as libellegrandparent "
+    private static final String SQL_QUERY_SELECTALL = "SELECT id_signalement, "
+            + " CONCAT(prefix, annee, mois, numero) as \"numero_anomalie\" "
+            + " prefix as canal, ws.name as statut,  ST_X(geom) as \"lon\", ST_Y(geom) as \"lat\", "
+            + " stsa.alias_mobile as \"description_public\", "
+            + " (substring((date_creation ||'') from 0 for 11) || ' ' || substring((heure_creation || '') from 12 for 8)) as \"date_creation\", "
+            + " ts.libelle as \"categorie\", tss.libelle as \"categorie_parent\", tsss.libelle as \"categorie_grandparent\" "
             + " FROM signalement_signalement s "
             + " INNER JOIN signalement_adresse a ON s.id_signalement = a.fk_id_signalement "
             + " INNER JOIN signalement_type_signalement ts ON ts.id_type_signalement = s.fk_id_type_signalement "
             + " LEFT JOIN signalement_type_signalement tss ON ts.fk_id_type_signalement = tss.id_type_signalement "
-            + " LEFT JOIN signalement_type_signalement tsss ON tss.fk_id_type_signalement = tsss.id_type_signalement;";
+            + " LEFT JOIN signalement_type_signalement tsss ON tss.fk_id_type_signalement = tsss.id_type_signalement "
+            + " LEFT JOIN signalement_type_signalement_alias stsa ON stsa.fk_id_type_signalement = s.fk_id_type_signalement "
+            + " LEFT JOIN workflow_resource_workflow wrw ON  s.id_signalement=wrw.id_resource AND wrw.resource_type='SIGNALEMENT_SIGNALEMENT' "
+            + " INNER JOIN workflow_state ws ON wrw.id_state=ws.id_state ORDER BY id_signalement ASC ) ";
 
     public Collection<DataObject> selectSignalementDataObjectsList( Plugin plugin )
     {
@@ -60,15 +68,21 @@ public class SignalementDAO
 
         while ( daoUtil.next( ) )
         {
-            SignalementDataObject signalementDataObject = new SignalementDataObject( );
+            SignalementDataObject signalement = new SignalementDataObject( );
 
-            signalementDataObject.setId( daoUtil.getInt( 1 ) );
-            signalementDataObject.setDateCreation( daoUtil.getDate( 2 ) );
-            signalementDataObject.setDatePrevueTraitement( daoUtil.getDate( 3 ) );
-            signalementDataObject.setLocation( daoUtil.getString( 4 ) );
-            signalementDataObject.setCategory( daoUtil.getString( 5 ) );
+            signalement.setId( daoUtil.getInt( "id_signalement" ) );
+            signalement.setNumeroAnomalie( daoUtil.getString( "numero_anomalie" ) );
+            signalement.setCanal( daoUtil.getString( "canal" ));
+            signalement.setStatut( daoUtil.getString( "statut" ));
+            signalement.setDescriptionPublic( "description_public" );
+            Location location = new Location();
+            location.setLon( daoUtil.getString( "lon" ) );
+            location.setLat( daoUtil.getString( "lat" ) );
+            signalement.setLocation( location );
+            signalement.setDateCreation( daoUtil.getDate( "date_creation" ) );
+            signalement.setCategory( daoUtil.getString( "categorie" ) );
 
-            listSignalementDataObjects.add( signalementDataObject );
+            listSignalementDataObjects.add( signalement );
         }
 
         daoUtil.free( );
