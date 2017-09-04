@@ -58,5 +58,14 @@ public class SignalementDataSource extends AbstractDataSource
         SignalementDAO dao = new SignalementDAO( );
         return dao.selectSignalementDataObjectsList( _plugin );
     }
+    
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public boolean isLocalizable()
+    {
+        return true;
+    }
 
 }
