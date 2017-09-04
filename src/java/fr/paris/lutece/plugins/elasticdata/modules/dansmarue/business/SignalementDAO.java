@@ -35,7 +35,9 @@ package fr.paris.lutece.plugins.elasticdata.modules.dansmarue.business;
 
 import fr.paris.lutece.plugins.elasticdata.business.DataObject;
 import fr.paris.lutece.portal.service.plugin.Plugin;
+import fr.paris.lutece.portal.service.util.AppPropertiesService;
 import fr.paris.lutece.util.sql.DAOUtil;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -44,12 +46,19 @@ import java.util.Collection;
  */
 public class SignalementDAO
 {
+    private static final String PROPERTY_CANAL_PREFIX = "elasticdata-dansmarue.canal.";
+    private static final String CANAL_S = "S";
+    private static final String CANAL_B = "B";
+    private static final String CANAL_A = "A";
+    private static final String CANAL_G = "G";
+    private static final String CANAL_UNKOWN = "unkown";
+    private static final String[] CANAUX = { CANAL_S , CANAL_B, CANAL_A, CANAL_G };
 
     private static final String SQL_QUERY_SELECTALL = "SELECT id_signalement, "
-            + " CONCAT(prefix, annee, mois, numero) as \"numero_anomalie\" "
+            + " CONCAT(prefix, annee, mois, numero) as \"numero_anomalie\", "
             + " prefix as canal, ws.name as statut,  ST_X(geom) as \"lon\", ST_Y(geom) as \"lat\", "
             + " stsa.alias_mobile as \"description_public\", "
-            + " (substring((date_creation ||'') from 0 for 11) || ' ' || substring((heure_creation || '') from 12 for 8)) as \"date_creation\", "
+            + " to_timestamp((substring((date_creation ||'') from 0 for 11) || ' ' || substring((heure_creation || '') from 12 for 8)), 'YYYY-MM-DD HH24:MI:SS') as \"date_creation\", "
             + " ts.libelle as \"categorie\", tss.libelle as \"categorie_parent\", tsss.libelle as \"categorie_grandparent\" "
             + " FROM signalement_signalement s "
             + " INNER JOIN signalement_adresse a ON s.id_signalement = a.fk_id_signalement "
@@ -58,7 +67,7 @@ public class SignalementDAO
             + " LEFT JOIN signalement_type_signalement tsss ON tss.fk_id_type_signalement = tsss.id_type_signalement "
             + " LEFT JOIN signalement_type_signalement_alias stsa ON stsa.fk_id_type_signalement = s.fk_id_type_signalement "
             + " LEFT JOIN workflow_resource_workflow wrw ON  s.id_signalement=wrw.id_resource AND wrw.resource_type='SIGNALEMENT_SIGNALEMENT' "
-            + " INNER JOIN workflow_state ws ON wrw.id_state=ws.id_state ORDER BY id_signalement ASC ) ";
+            + " INNER JOIN workflow_state ws ON wrw.id_state=ws.id_state ORDER BY id_signalement ASC";
 
     public Collection<DataObject> selectSignalementDataObjectsList( Plugin plugin )
     {
@@ -72,15 +81,17 @@ public class SignalementDAO
 
             signalement.setId( daoUtil.getInt( "id_signalement" ) );
             signalement.setNumeroAnomalie( daoUtil.getString( "numero_anomalie" ) );
-            signalement.setCanal( daoUtil.getString( "canal" ));
+            signalement.setCanal( translateCanal( daoUtil.getString( "canal" )));
             signalement.setStatut( daoUtil.getString( "statut" ));
-            signalement.setDescriptionPublic( "description_public" );
+            signalement.setDescriptionPublic( daoUtil.getString( "description_public" ) );
             Location location = new Location();
             location.setLon( daoUtil.getString( "lon" ) );
             location.setLat( daoUtil.getString( "lat" ) );
             signalement.setLocation( location );
-            signalement.setDateCreation( daoUtil.getDate( "date_creation" ) );
+            long lDateCreation = daoUtil.getDate( "date_creation" ).getTime( );
+            signalement.setTimestamp( lDateCreation );
             signalement.setCategory( daoUtil.getString( "categorie" ) );
+            signalement.setDateCreation( new Date( lDateCreation ));
 
             listSignalementDataObjects.add( signalement );
         }
@@ -88,6 +99,19 @@ public class SignalementDAO
         daoUtil.free( );
 
         return listSignalementDataObjects;
+    }
+    
+    
+    private String translateCanal( String strSource )
+    {
+        for( String strCanal : CANAUX )
+        {
+            if( strSource.equalsIgnoreCase( strCanal ) )
+            {
+                return AppPropertiesService.getProperty( PROPERTY_CANAL_PREFIX + strCanal );
+            }
+        }
+        return AppPropertiesService.getProperty( PROPERTY_CANAL_PREFIX + CANAL_UNKOWN );
     }
 
 }
