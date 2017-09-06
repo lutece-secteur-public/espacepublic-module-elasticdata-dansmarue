@@ -44,15 +44,14 @@ public class SignalementDataObject extends AbstractDataObject
 
     // Variables declarations
     private int _nId;
-    private Date _dateDateCreation;
-    private Date _dateDatePrevueTraitement;
     private Location _location;
     private String _strCategory;
-    private String _strHeureCreation;
     private String _strCanal;
     private String _strStatut;
     private String _strNumeroAnomalie;
     private String _strDescriptionPublic;
+    private long _lTimestampPriseEnCompte;
+    private long _lTimestampCloture;
 
     /**
      * Returns the Id
@@ -72,46 +71,6 @@ public class SignalementDataObject extends AbstractDataObject
     public void setId( int nId )
     {
         _nId = nId;
-    }
-
-    /**
-     * Returns the DateCreation
-     *
-     * @return The DateCreation
-     */
-    public Date getDateCreation()
-    {
-        return _dateDateCreation;
-    }
-
-    /**
-     * Sets the DateCreation
-     *
-     * @param dateDateCreation The DateCreation
-     */
-    public void setDateCreation( Date dateDateCreation )
-    {
-        _dateDateCreation = dateDateCreation;
-    }
-
-    /**
-     * Returns the DatePrevueTraitement
-     *
-     * @return The DatePrevueTraitement
-     */
-    public Date getDatePrevueTraitement()
-    {
-        return _dateDatePrevueTraitement;
-    }
-
-    /**
-     * Sets the DatePrevueTraitement
-     *
-     * @param dateDatePrevueTraitement The DatePrevueTraitement
-     */
-    public void setDatePrevueTraitement( Date dateDatePrevueTraitement )
-    {
-        _dateDatePrevueTraitement = dateDatePrevueTraitement;
     }
 
     /**
@@ -152,26 +111,6 @@ public class SignalementDataObject extends AbstractDataObject
     public void setCategory( String strCategory )
     {
         _strCategory = strCategory;
-    }
-
-    /**
-     * Returns the HeureCreation
-     *
-     * @return The HeureCreation
-     */
-    public String getHeureCreation()
-    {
-        return _strHeureCreation;
-    }
-
-    /**
-     * Sets the HeureCreation
-     *
-     * @param strHeureCreation The HeureCreation
-     */
-    public void setHeureCreation( String strHeureCreation )
-    {
-        _strHeureCreation = strHeureCreation;
     }
 
     /**
@@ -252,6 +191,34 @@ public class SignalementDataObject extends AbstractDataObject
     public void setDescriptionPublic( String strDescriptionPublic )
     {
         _strDescriptionPublic = strDescriptionPublic;
+    }
+
+    /**
+     * @return the TimestampPriseEnCompte
+     */
+    public long getTimestampPriseEnCompte() {
+        return _lTimestampPriseEnCompte;
+    }
+
+    /**
+     * @param lTimestampPriseEnCompte the TimestampPriseEnCompte to set
+     */
+    public void setTimestampPriseEnCompte(long lTimestampPriseEnCompte) {
+        this._lTimestampPriseEnCompte = lTimestampPriseEnCompte;
+    }
+
+    /**
+     * @return the TimestampCloture
+     */
+    public long getTimestampCloture() {
+        return _lTimestampCloture;
+    }
+
+    /**
+     * @param lTimestampCloture the TimestampCloture to set
+     */
+    public void setTimestampCloture(long lTimestampCloture) {
+        this._lTimestampCloture = lTimestampCloture;
     }
 
 }
