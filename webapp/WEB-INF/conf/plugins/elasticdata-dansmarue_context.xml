@@ -10,6 +10,35 @@
            <property name="name" value="Base des signalements DansMaRue" />
            <property name="targetIndexName" value="signalements" />
            <property name="dataType" value="signalement" />
+           <property name="fullIndexingDaemon" value="true" />
+           <property name="mappings">
+               <value><![CDATA[
+{
+ "mappings": {
+    "signalement": {
+      "properties": {
+        "location": {
+          "type": "geo_point"
+        },
+        "timestamp": {
+          "format": "epoch_millis",
+          "type": "date"
+        },
+        "timestampPriseEnCompte": {
+          "format": "epoch_millis",
+          "type": "date"
+        },
+        "timestampCloture": {
+          "format": "epoch_millis",
+          "type": "date"
+        }
+      }
+    }
+  }
+}
+]]>
+            </value>
+           </property>
        </bean>
 
 
