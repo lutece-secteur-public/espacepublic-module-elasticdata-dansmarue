@@ -55,28 +55,49 @@ public class SignalementDAO
     private static final String CANAL_UNKOWN = "unkown";
     private static final String[] CANAUX = { CANAL_S , CANAL_B, CANAL_A, CANAL_G };
 
-    private static final String SQL_QUERY_SELECTALL = "SELECT s.id_signalement, "
+    private static final String SQL_QUERY_SELECTALL = "SELECT distinct on (s.id_signalement) s.id_signalement, "
             + " CONCAT(prefix, annee, mois, numero) as \"numero_anomalie\", "
             + " prefix as canal, ws.name as statut,  ST_X(geom) as \"lon\", ST_Y(geom) as \"lat\", "
             + " stsa.alias_mobile as \"description_public\", "
             + " to_timestamp((substring((date_creation ||'') from 0 for 11) || ' ' || substring((heure_creation || '') from 12 for 8)), 'YYYY-MM-DD HH24:MI:SS') as \"date_creation\", "
             + " date_min.min as \"date_prise_en_compte\","
             + " date_max.max as \"date_cloture\","
+            + " stsa.alias as \"alias\","
+            + " sp.libelle as \"priorite\","
+            + " CONCAT(case when tsss.libelle is null then '' else CONCAT(tsss.libelle, ' > ') end, case when tss.libelle is null then '' else CONCAT(tss.libelle, ' > ') end, ts.libelle) as \"type\","
+            + " uu.label as \"direction\","
+            + " a.adresse as \"adresse\","
+            + " sa.numero_arrondissement as \"arrondissement\","
+            + " ssi.mail as \"email_usager\","
+            + " s.commentaire as \"commentaire_usager\","
+            + " COALESCE(count_photos.count, 0) as \"nombre_de_photos\","
+            + " libelles_rejets.libelle as \"raisons_de_rejet\","
             + " ts.libelle as \"categorie\", tss.libelle as \"categorie_parent\", tsss.libelle as \"categorie_grandparent\" "
             + " FROM signalement_signalement s "
-            + " INNER JOIN signalement_adresse a ON s.id_signalement = a.fk_id_signalement "
-            + " INNER JOIN signalement_type_signalement ts ON ts.id_type_signalement = s.fk_id_type_signalement "
+            + " LEFT JOIN signalement_adresse a ON s.id_signalement = a.fk_id_signalement "
+            + " LEFT JOIN signalement_type_signalement ts ON ts.id_type_signalement = s.fk_id_type_signalement "
             + " LEFT JOIN signalement_type_signalement tss ON ts.fk_id_type_signalement = tss.id_type_signalement "
             + " LEFT JOIN signalement_type_signalement tsss ON tss.fk_id_type_signalement = tsss.id_type_signalement "
             + " LEFT JOIN signalement_type_signalement_alias stsa ON stsa.fk_id_type_signalement = s.fk_id_type_signalement "
-            + " INNER JOIN workflow_resource_workflow wrw ON  s.id_signalement=wrw.id_resource AND wrw.resource_type='SIGNALEMENT_SIGNALEMENT' "
-            + " INNER JOIN workflow_state ws ON wrw.id_state=ws.id_state"
+            + " LEFT JOIN workflow_resource_workflow wrw ON  s.id_signalement=wrw.id_resource AND wrw.resource_type='SIGNALEMENT_SIGNALEMENT' "
+            + " LEFT JOIN workflow_state ws ON wrw.id_state=ws.id_state"
+            + " LEFT JOIN signalement_priorite sp on s.fk_id_priorite = sp.id_priorite"
+            + " LEFT JOIN signalement_arrondissement sa on s.fk_id_arrondissement = sa.id_arrondissement"
+            + " LEFT JOIN signalement_signaleur ssi on s.id_signalement = ssi.fk_id_signalement"
+            + " LEFT JOIN unittree_unit uu on ts.fk_id_unit = uu.id_unit"
             + " LEFT JOIN ("
             + "     select ss.id_signalement, min(wrh.creation_date) from signalement_signalement ss inner join workflow_resource_history wrh on ss.id_signalement = wrh.id_resource and wrh.user_access_code != 'auto' group by ss.id_signalement order by ss.id_signalement"
             + " ) date_min on s.id_signalement = date_min.id_signalement"
             + " LEFT JOIN ("
             + "     select ss.id_signalement, max(wrh.creation_date) from signalement_signalement ss inner join workflow_resource_workflow wrw on ss.id_signalement = wrw.id_resource inner join workflow_resource_history wrh on ss.id_signalement = wrh.id_resource where wrw.id_state in (10,11) group by ss.id_signalement  order by ss.id_signalement"
-            + " ) date_max on s.id_signalement = date_max.id_signalement";
+            + " ) date_max on s.id_signalement = date_max.id_signalement"
+            + " LEFT JOIN ("
+            + "     select ss.id_signalement, count(ss.id_signalement) from signalement_signalement ss inner join signalement_photo sp on ss.id_signalement = sp.fk_id_signalement group by ss.id_signalement"
+            + " ) count_photos on s.id_signalement = count_photos.id_signalement"
+            + " LEFT JOIN ("
+            + "     select ss.id_signalement, string_agg(case when sors.fk_id_observation_rejet is null then sors.observation_rejet_comment else sor.libelle end, ',') as libelle from signalement_signalement ss inner join signalement_observation_rejet_signalement sors on ss.id_signalement = sors.fk_id_signalement left join signalement_observation_rejet sor on sors.fk_id_observation_rejet = sor.id_observation_rejet  group by ss.id_signalement"
+            + " ) libelles_rejets on s.id_signalement = libelles_rejets.id_signalement"
+    ;
 
     public Collection<DataObject> selectSignalementDataObjectsList( Plugin plugin )
     {
@@ -110,6 +131,16 @@ public class SignalementDAO
                 signalement.setTimestampCloture( tTimestampCloture.getTime( ) );
             }
             signalement.setCategory( daoUtil.getString( "categorie" ) );
+            signalement.setAlias( daoUtil.getString( "alias" ) );
+            signalement.setPriorite( daoUtil.getString( "priorite" ) );
+            signalement.setType( daoUtil.getString( "type" ) );
+            signalement.setDirection( daoUtil.getString( "direction" ) );
+            signalement.setAdresse( daoUtil.getString( "adresse" ) );
+            signalement.setArrondissement( daoUtil.getString( "arrondissement" ) );
+            signalement.setEmailUsager( daoUtil.getString( "email_usager" ) );
+            signalement.setCommentaireUsager( daoUtil.getString( "commentaire_usager" ) );
+            signalement.setPhotosCount( daoUtil.getInt( "nombre_de_photos" ) );
+            signalement.setRaisonsRejet( daoUtil.getString( "raisons_de_rejet" ) );
 
             listSignalementDataObjects.add( signalement );
         }

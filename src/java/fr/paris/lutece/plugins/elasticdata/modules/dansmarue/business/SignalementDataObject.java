@@ -52,6 +52,16 @@ public class SignalementDataObject extends AbstractDataObject
     private String _strDescriptionPublic;
     private long _lTimestampPriseEnCompte;
     private long _lTimestampCloture;
+    private String _strAlias;
+    private String _strPriorite;
+    private String _strType;
+    private String _strDirection;
+    private String _strAdresse;
+    private String _strArrondissement;
+    private String _strEmailUsager;
+    private String _strCommentaireUsager;
+    private int _nPhotosCount;
+    private String _strRaisonsRejet; 
 
     /**
      * Returns the Id
@@ -219,6 +229,166 @@ public class SignalementDataObject extends AbstractDataObject
      */
     public void setTimestampCloture(long lTimestampCloture) {
         this._lTimestampCloture = lTimestampCloture;
+    }
+
+    /**
+     * @return the Alias
+     */
+    public String getAlias( )
+    {
+        return _strAlias;
+    }
+
+    /**
+     * @param strAlias the Alias to set
+     */
+    public void setAlias( String strAlias )
+    {
+        _strAlias = strAlias;
+    }
+
+    /**
+     * @return the Priorite
+     */
+    public String getPriorite( )
+    {
+        return _strPriorite;
+    }
+
+    /**
+     * @param strPriorite the Priorite to set
+     */
+    public void setPriorite( String strPriorite )
+    {
+        _strPriorite = strPriorite;
+    }
+
+    /**
+     * @return the Type
+     */
+    public String getType( )
+    {
+        return _strType;
+    }
+
+    /**
+     * @param strType the Type to set
+     */
+    public void setType( String strType )
+    {
+        _strType = strType;
+    }
+
+    /**
+     * @return the Direction
+     */
+    public String getDirection( )
+    {
+        return _strDirection;
+    }
+
+    /**
+     * @param strDirection the Direction to set
+     */
+    public void setDirection( String strDirection )
+    {
+        _strDirection = strDirection;
+    }
+
+    /**
+     * @return the Adresse
+     */
+    public String getAdresse( )
+    {
+        return _strAdresse;
+    }
+
+    /**
+     * @param strAdresse the Adresse to set
+     */
+    public void setAdresse( String strAdresse )
+    {
+        _strAdresse = strAdresse;
+    }
+
+    /**
+     * @return the Arrondissement
+     */
+    public String getArrondissement( )
+    {
+        return _strArrondissement;
+    }
+
+    /**
+     * @param strArrondissement the Arrondissement to set
+     */
+    public void setArrondissement( String strArrondissement )
+    {
+        _strArrondissement = strArrondissement;
+    }
+
+    /**
+     * @return the EmailUsager
+     */
+    public String getEmailUsager( )
+    {
+        return _strEmailUsager;
+    }
+
+    /**
+     * @param strEmailUsager the EmailUsager to set
+     */
+    public void setEmailUsager( String strEmailUsager )
+    {
+        strEmailUsager = strEmailUsager;
+    }
+
+    /**
+     * @return the CommentaireUsager
+     */
+    public String getCommentaireUsager( )
+    {
+        return _strCommentaireUsager;
+    }
+
+    /**
+     * @param strCommentaireUsager the CommentaireUsager to set
+     */
+    public void setCommentaireUsager( String strCommentaireUsager )
+    {
+        _strCommentaireUsager = strCommentaireUsager;
+    }
+
+    /**
+     * @return the PhotosCount
+     */
+    public int getPhotosCount( )
+    {
+        return _nPhotosCount;
+    }
+
+    /**
+     * @param nPhotosCount the PhotosCount to set
+     */
+    public void setPhotosCount( int nPhotosCount )
+    {
+        _nPhotosCount = nPhotosCount;
+    }
+
+    /**
+     * @return the RaisonsRejet
+     */
+    public String getRaisonsRejet( )
+    {
+        return _strRaisonsRejet;
+    }
+
+    /**
+     * @param strRaisonsRejet the RaisonsRejet to set
+     */
+    public void setRaisonsRejet( String strRaisonsRejet )
+    {
+        _strRaisonsRejet = strRaisonsRejet;
     }
 
 }
