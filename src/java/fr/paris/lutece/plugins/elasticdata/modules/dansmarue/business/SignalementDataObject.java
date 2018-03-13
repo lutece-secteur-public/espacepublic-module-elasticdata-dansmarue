@@ -340,7 +340,7 @@ public class SignalementDataObject extends AbstractDataObject
      */
     public void setEmailUsager( String strEmailUsager )
     {
-        strEmailUsager = strEmailUsager;
+        _strEmailUsager = strEmailUsager;
     }
 
     /**
