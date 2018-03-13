@@ -57,7 +57,7 @@ public class SignalementDAO
 
     private static final String SQL_QUERY_SELECTALL = "SELECT distinct on (s.id_signalement) s.id_signalement, "
             + " CONCAT(prefix, annee, mois, numero) as \"numero_anomalie\", "
-            + " prefix as canal, ws.name as statut,  ST_X(geom) as \"lon\", ST_Y(geom) as \"lat\", "
+            + " prefix as canal, ws.name as statut,  ST_X(a.geom) as \"lon\", ST_Y(a.geom) as \"lat\", "
             + " stsa.alias_mobile as \"description_public\", "
             + " to_timestamp((substring((date_creation ||'') from 0 for 11) || ' ' || substring((heure_creation || '') from 12 for 8)), 'YYYY-MM-DD HH24:MI:SS') as \"date_creation\", "
             + " date_min.min as \"date_prise_en_compte\","
