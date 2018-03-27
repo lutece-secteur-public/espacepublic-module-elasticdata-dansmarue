@@ -114,10 +114,14 @@ public class SignalementDAO
             signalement.setCanal( translateCanal( daoUtil.getString( "canal" )));
             signalement.setStatut( daoUtil.getString( "statut" ));
             signalement.setDescriptionPublic( daoUtil.getString( "description_public" ) );
-            Location location = new Location();
-            location.setLon( daoUtil.getString( "lon" ) );
-            location.setLat( daoUtil.getString( "lat" ) );
-            signalement.setLocation( location );
+            String strLon = daoUtil.getString( "lon" );
+            String strLat = daoUtil.getString( "lat" );
+            if ( strLon != null && strLat != null ) {
+                Location location = new Location();
+                location.setLon( strLon );
+                location.setLat( strLat );
+                signalement.setLocation( location );
+            }
             long lDateCreation = daoUtil.getTimestamp( "date_creation" ).getTime( );
             signalement.setTimestamp( lDateCreation );
             Timestamp tTimestampPriseEnCompte = daoUtil.getTimestamp( "date_prise_en_compte" );
