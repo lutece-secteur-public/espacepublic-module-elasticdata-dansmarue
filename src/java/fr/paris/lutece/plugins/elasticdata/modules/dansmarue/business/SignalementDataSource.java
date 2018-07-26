@@ -35,7 +35,6 @@
 package fr.paris.lutece.plugins.elasticdata.modules.dansmarue.business;
 
 import fr.paris.lutece.plugins.elasticdata.business.AbstractDataSource;
-import fr.paris.lutece.plugins.elasticdata.business.DataObject;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.plugin.PluginService;
 import java.util.Collection;
@@ -49,15 +48,6 @@ public class SignalementDataSource extends AbstractDataSource
 
     private static Plugin _plugin = PluginService.getPlugin( PLUGIN_NAME );
 
-    /**
-     * {@inheritDoc }
-     */
-    @Override
-    public Collection<DataObject> getDataObjects( )
-    {
-        SignalementDAO dao = new SignalementDAO( );
-        return dao.selectSignalementDataObjectsList( _plugin );
-    }
     
     /**
      * {@inheritDoc }
@@ -68,4 +58,9 @@ public class SignalementDataSource extends AbstractDataSource
         return true;
     }
 
+    @Override
+    public Collection fetchDataObjects() {
+        SignalementDAO dao = new SignalementDAO( );
+        return dao.selectSignalementDataObjectsList( _plugin );
+    }
 }
