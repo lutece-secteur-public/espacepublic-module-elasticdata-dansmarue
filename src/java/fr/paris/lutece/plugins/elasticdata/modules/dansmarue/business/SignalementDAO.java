@@ -33,14 +33,14 @@
  */
 package fr.paris.lutece.plugins.elasticdata.modules.dansmarue.business;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collection;
+
 import fr.paris.lutece.plugins.elasticdata.business.DataObject;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
 import fr.paris.lutece.util.sql.DAOUtil;
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * SignalementDAO
@@ -59,7 +59,7 @@ public class SignalementDAO
             + " CONCAT(prefix, annee, mois, numero) as \"numero_anomalie\", "
             + " prefix as canal, ws.name as statut,  ST_X(a.geom) as \"lon\", ST_Y(a.geom) as \"lat\", "
             + " stsa.alias_mobile as \"description_public\", "
-            + " to_timestamp((substring((date_creation ||'') from 0 for 11) || ' ' || substring((heure_creation || '') from 12 for 8)), 'YYYY-MM-DD HH24:MI:SS') as \"date_creation\", "
+            + " date_creation as \"date_creation\", "
             + " date_min.min as \"date_prise_en_compte\","
             + " date_max.max as \"date_cloture\","
             + " stsa.alias as \"alias\","
@@ -97,7 +97,7 @@ public class SignalementDAO
             + " LEFT JOIN ("
             + "     select ss.id_signalement, string_agg(case when sors.fk_id_observation_rejet is null then sors.observation_rejet_comment else sor.libelle end, ',') as libelle from signalement_signalement ss inner join signalement_observation_rejet_signalement sors on ss.id_signalement = sors.fk_id_signalement left join signalement_observation_rejet sor on sors.fk_id_observation_rejet = sor.id_observation_rejet  group by ss.id_signalement"
             + " ) libelles_rejets on s.id_signalement = libelles_rejets.id_signalement"
-    ;
+            ;
 
     public Collection<DataObject> selectSignalementDataObjectsList( Plugin plugin )
     {
@@ -116,7 +116,7 @@ public class SignalementDAO
             signalement.setDescriptionPublic( daoUtil.getString( "description_public" ) );
             String strLon = daoUtil.getString( "lon" );
             String strLat = daoUtil.getString( "lat" );
-            if ( strLon != null && strLat != null ) {
+            if ( ( strLon != null ) && ( strLat != null ) ) {
                 Location location = new Location();
                 location.setLon( strLon );
                 location.setLat( strLat );
@@ -153,8 +153,8 @@ public class SignalementDAO
 
         return listSignalementDataObjects;
     }
-    
-    
+
+
     private String translateCanal( String strSource )
     {
         for( String strCanal : CANAUX )

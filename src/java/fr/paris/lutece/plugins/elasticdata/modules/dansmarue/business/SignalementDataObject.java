@@ -34,7 +34,6 @@
 package fr.paris.lutece.plugins.elasticdata.modules.dansmarue.business;
 
 import fr.paris.lutece.plugins.elasticdata.business.AbstractDataObject;
-import java.sql.Date;
 
 /**
  * SignalementDataObject
@@ -61,14 +60,14 @@ public class SignalementDataObject extends AbstractDataObject
     private String _strEmailUsager;
     private String _strCommentaireUsager;
     private int _nPhotosCount;
-    private String _strRaisonsRejet; 
+    private String _strRaisonsRejet;
 
     /**
      * Returns the Id
      *
      * @return The Id
      */
-    public int getId()
+    public int getIdSignalementDataObject()
     {
         return _nId;
     }
@@ -214,7 +213,7 @@ public class SignalementDataObject extends AbstractDataObject
      * @param lTimestampPriseEnCompte the TimestampPriseEnCompte to set
      */
     public void setTimestampPriseEnCompte(long lTimestampPriseEnCompte) {
-        this._lTimestampPriseEnCompte = lTimestampPriseEnCompte;
+        _lTimestampPriseEnCompte = lTimestampPriseEnCompte;
     }
 
     /**
@@ -228,7 +227,7 @@ public class SignalementDataObject extends AbstractDataObject
      * @param lTimestampCloture the TimestampCloture to set
      */
     public void setTimestampCloture(long lTimestampCloture) {
-        this._lTimestampCloture = lTimestampCloture;
+        _lTimestampCloture = lTimestampCloture;
     }
 
     /**
