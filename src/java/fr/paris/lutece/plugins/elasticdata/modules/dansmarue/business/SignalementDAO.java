@@ -33,13 +33,14 @@
  */
 package fr.paris.lutece.plugins.elasticdata.modules.dansmarue.business;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.apache.commons.lang.StringUtils;
+
 import fr.paris.lutece.plugins.elasticdata.business.DataObject;
 import fr.paris.lutece.portal.service.plugin.Plugin;
-import fr.paris.lutece.portal.service.util.AppPropertiesService;
 import fr.paris.lutece.util.sql.DAOUtil;
 
 /**
@@ -47,124 +48,82 @@ import fr.paris.lutece.util.sql.DAOUtil;
  */
 public class SignalementDAO
 {
-    private static final String PROPERTY_CANAL_PREFIX = "elasticdata-dansmarue.canal.";
-    private static final String CANAL_S = "S";
-    private static final String CANAL_B = "B";
-    private static final String CANAL_A = "A";
-    private static final String CANAL_G = "G";
-    private static final String CANAL_UNKOWN = "unkown";
-    private static final String[] CANAUX = { CANAL_S , CANAL_B, CANAL_A, CANAL_G };
 
-    private static final String SQL_QUERY_SELECTALL = "SELECT distinct on (s.id_signalement) s.id_signalement, "
-            + " CONCAT(prefix, annee, mois, numero) as \"numero_anomalie\", "
-            + " prefix as canal, ws.name as statut,  ST_X(a.geom) as \"lon\", ST_Y(a.geom) as \"lat\", "
-            + " stsa.alias_mobile as \"description_public\", "
-            + " date_creation as \"date_creation\", "
-            + " date_min.min as \"date_prise_en_compte\","
-            + " date_max.max as \"date_cloture\","
-            + " stsa.alias as \"alias\","
-            + " sp.libelle as \"priorite\","
-            + " CONCAT(case when tsss.libelle is null then '' else CONCAT(tsss.libelle, ' > ') end, case when tss.libelle is null then '' else CONCAT(tss.libelle, ' > ') end, ts.libelle) as \"type\","
-            + " uu.label as \"direction\","
-            + " a.adresse as \"adresse\","
-            + " sa.numero_arrondissement as \"arrondissement\","
-            + " ssi.mail as \"email_usager\","
-            + " s.commentaire as \"commentaire_usager\","
-            + " COALESCE(count_photos.count, 0) as \"nombre_de_photos\","
-            + " libelles_rejets.libelle as \"raisons_de_rejet\","
-            + " ts.libelle as \"categorie\", tss.libelle as \"categorie_parent\", tsss.libelle as \"categorie_grandparent\" "
-            + " FROM signalement_signalement s "
-            + " LEFT JOIN signalement_adresse a ON s.id_signalement = a.fk_id_signalement "
-            + " LEFT JOIN signalement_type_signalement ts ON ts.id_type_signalement = s.fk_id_type_signalement "
-            + " LEFT JOIN signalement_type_signalement tss ON ts.fk_id_type_signalement = tss.id_type_signalement "
-            + " LEFT JOIN signalement_type_signalement tsss ON tss.fk_id_type_signalement = tsss.id_type_signalement "
-            + " LEFT JOIN signalement_type_signalement_alias stsa ON stsa.fk_id_type_signalement = s.fk_id_type_signalement "
-            + " LEFT JOIN workflow_resource_workflow wrw ON  s.id_signalement=wrw.id_resource AND wrw.resource_type='SIGNALEMENT_SIGNALEMENT' "
-            + " LEFT JOIN workflow_state ws ON wrw.id_state=ws.id_state"
-            + " LEFT JOIN signalement_priorite sp on s.fk_id_priorite = sp.id_priorite"
-            + " LEFT JOIN signalement_arrondissement sa on s.fk_id_arrondissement = sa.id_arrondissement"
-            + " LEFT JOIN signalement_signaleur ssi on s.id_signalement = ssi.fk_id_signalement"
-            + " LEFT JOIN unittree_unit uu on ts.fk_id_unit = uu.id_unit"
-            + " LEFT JOIN ("
-            + "     select ss.id_signalement, min(wrh.creation_date) from signalement_signalement ss inner join workflow_resource_history wrh on ss.id_signalement = wrh.id_resource and wrh.user_access_code != 'auto' group by ss.id_signalement order by ss.id_signalement"
-            + " ) date_min on s.id_signalement = date_min.id_signalement"
-            + " LEFT JOIN ("
-            + "     select ss.id_signalement, max(wrh.creation_date) from signalement_signalement ss inner join workflow_resource_workflow wrw on ss.id_signalement = wrw.id_resource inner join workflow_resource_history wrh on ss.id_signalement = wrh.id_resource where wrw.id_state in (10,11) group by ss.id_signalement  order by ss.id_signalement"
-            + " ) date_max on s.id_signalement = date_max.id_signalement"
-            + " LEFT JOIN ("
-            + "     select ss.id_signalement, count(ss.id_signalement) from signalement_signalement ss inner join signalement_photo sp on ss.id_signalement = sp.fk_id_signalement group by ss.id_signalement"
-            + " ) count_photos on s.id_signalement = count_photos.id_signalement"
-            + " LEFT JOIN ("
-            + "     select ss.id_signalement, string_agg(case when sors.fk_id_observation_rejet is null then sors.observation_rejet_comment else sor.libelle end, ',') as libelle from signalement_signalement ss inner join signalement_observation_rejet_signalement sors on ss.id_signalement = sors.fk_id_signalement left join signalement_observation_rejet sor on sors.fk_id_observation_rejet = sor.id_observation_rejet  group by ss.id_signalement"
-            + " ) libelles_rejets on s.id_signalement = libelles_rejets.id_signalement"
-            ;
+    private static final String SQL_QUERY_SELECTALL = "SELECT numero, priorite, type_signalement, alias, alias_mobile, direction, quartier, adresse, coord_x, coord_y, "
+            + "arrondissement, secteur, date_creation, heure_creation, etat, mail_usager, commentaire_usager, nb_photos, raisons_rejet, "
+            + "nb_suivis, nb_felicitations, date_cloture, is_photo_service_fait, mail_destinataire_courriel, courriel_expediteur, date_envoi_courriel, "
+            + "id_mail_service_fait, executeur_service_fait, date_derniere_action, date_prevu_traitement, commentaire_agent_terrain, executeur_rejet, "
+            + "executeur_mise_surveillance, nb_requalifications " + "FROM signalement_export WHERE to_date(date_creation, 'DD/MM/YYYY') >= ? OR to_date(date_derniere_action, 'DD/MM/YYYY') >= ?;";
 
-    public Collection<DataObject> selectSignalementDataObjectsList( Plugin plugin )
+    /**
+     * Select signalement for export ElasticSearch
+     * @param plugin
+     * @param lastIndexation
+     *          last Indexation date
+     * @return Collection to send to ElasticSearch
+     */
+    public Collection<DataObject> selectSignalementDataObjectsList( Plugin plugin, Date lastIndexation )
     {
         Collection<DataObject> listSignalementDataObjects = new ArrayList<>( );
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin );
-        daoUtil.executeQuery( );
-
-        while ( daoUtil.next( ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin ) )
         {
-            SignalementDataObject signalement = new SignalementDataObject( );
 
-            signalement.setId( daoUtil.getInt( "id_signalement" ) );
-            signalement.setNumeroAnomalie( daoUtil.getString( "numero_anomalie" ) );
-            signalement.setCanal( translateCanal( daoUtil.getString( "canal" )));
-            signalement.setStatut( daoUtil.getString( "statut" ));
-            signalement.setDescriptionPublic( daoUtil.getString( "description_public" ) );
-            String strLon = daoUtil.getString( "lon" );
-            String strLat = daoUtil.getString( "lat" );
-            if ( ( strLon != null ) && ( strLat != null ) ) {
-                Location location = new Location();
-                location.setLon( strLon );
-                location.setLat( strLat );
-                signalement.setLocation( location );
-            }
-            long lDateCreation = daoUtil.getTimestamp( "date_creation" ).getTime( );
-            signalement.setTimestamp( lDateCreation );
-            Timestamp tTimestampPriseEnCompte = daoUtil.getTimestamp( "date_prise_en_compte" );
-            if (tTimestampPriseEnCompte != null)
-            {
-                signalement.setTimestampPriseEnCompte( tTimestampPriseEnCompte.getTime( ) );
-            }
-            Timestamp tTimestampCloture = daoUtil.getTimestamp( "date_cloture" );
-            if (tTimestampCloture != null)
-            {
-                signalement.setTimestampCloture( tTimestampCloture.getTime( ) );
-            }
-            signalement.setCategory( daoUtil.getString( "categorie" ) );
-            signalement.setAlias( daoUtil.getString( "alias" ) );
-            signalement.setPriorite( daoUtil.getString( "priorite" ) );
-            signalement.setType( daoUtil.getString( "type" ) );
-            signalement.setDirection( daoUtil.getString( "direction" ) );
-            signalement.setAdresse( daoUtil.getString( "adresse" ) );
-            signalement.setArrondissement( daoUtil.getString( "arrondissement" ) );
-            signalement.setEmailUsager( daoUtil.getString( "email_usager" ) );
-            signalement.setCommentaireUsager( daoUtil.getString( "commentaire_usager" ) );
-            signalement.setPhotosCount( daoUtil.getInt( "nombre_de_photos" ) );
-            signalement.setRaisonsRejet( daoUtil.getString( "raisons_de_rejet" ) );
+            daoUtil.setDate( 1, lastIndexation );
+            daoUtil.setDate( 2, lastIndexation );
 
-            listSignalementDataObjects.add( signalement );
+            daoUtil.executeQuery( );
+
+            while ( daoUtil.next( ) )
+            {
+                SignalementDataObject signalement = new SignalementDataObject( );
+
+                signalement.setNumero( daoUtil.getString( 1 ) );
+                signalement.setPriorite( daoUtil.getString( 2 ) );
+                signalement.setTypeSignalement( daoUtil.getString( 3 ) );
+                signalement.setAlias( daoUtil.getString( 4 ) );
+                signalement.setAliasMobile( daoUtil.getString( 5 ) );
+                signalement.setDirection( daoUtil.getString( 6 ) );
+                signalement.setQuartier( daoUtil.getString( 7 ) );
+                signalement.setAdresse( daoUtil.getString( 8 ) );
+                signalement.setCoordX( daoUtil.getDouble( 9 ) );
+                signalement.setCoordY( daoUtil.getDouble( 10 ) );
+                signalement.setArrondissement( daoUtil.getString( 11 ) );
+                signalement.setSecteur( daoUtil.getString( 12 ) );
+                signalement.setDateCeration( daoUtil.getString( 13 ) );
+                signalement.setHeureCeration( daoUtil.getString( 14 ) );
+                signalement.setEtat( daoUtil.getString( 15 ) );
+                signalement.setMailUsager( daoUtil.getString( 16 ) );
+                signalement.setCommentaireUsager( daoUtil.getString( 17 ) );
+                signalement.setNbPhotos( daoUtil.getInt( 18 ) );
+                signalement.setRaisonRejet( daoUtil.getString( 19 ) );
+                signalement.setNbSuivis( daoUtil.getInt( 20 ) );
+                signalement.setNbFelicitations( daoUtil.getInt( 21 ) );
+                signalement.setDateCloture( daoUtil.getString( 22 ) );
+                signalement.setIsPhotoServiceFait( daoUtil.getInt( 23 ) );
+                signalement.setMailDestinataireCourriel( daoUtil.getString( 24 ) );
+                signalement.setCourrielExpediteur( daoUtil.getString( 25 ) );
+                signalement.setDateEnvoiCourriel( daoUtil.getString( 26 ) );
+                signalement.setIdMailServiceFait( daoUtil.getInt( 27 ) );
+                signalement.setExecuteurServiceFait( daoUtil.getString( 28 ) );
+                signalement.setDateDerniereAction( daoUtil.getString( 29 ) );
+                signalement.setDatePrevuTraitement( daoUtil.getString( 30 ) );
+                signalement.setCommentaireAgentTerrain( daoUtil.getString( 31 ) );
+                signalement.setExecuteurRejet( daoUtil.getString( 32 ) );
+                signalement.setExecuteurMiseEnSurvreillance( daoUtil.getString( 33 ) );
+                signalement.setNbRequalifications( daoUtil.getInt( 34 ) );
+
+                signalement.setColonneVide1( StringUtils.EMPTY );
+                signalement.setColonneVide2( StringUtils.EMPTY );
+                signalement.setColonneVide3( StringUtils.EMPTY );
+                signalement.setColonneVide4( StringUtils.EMPTY );
+                signalement.setColonneVide5( StringUtils.EMPTY );
+
+                listSignalementDataObjects.add( signalement );
+            }
+
         }
-
-        daoUtil.free( );
 
         return listSignalementDataObjects;
-    }
-
-
-    private String translateCanal( String strSource )
-    {
-        for( String strCanal : CANAUX )
-        {
-            if( strSource.equalsIgnoreCase( strCanal ) )
-            {
-                return AppPropertiesService.getProperty( PROPERTY_CANAL_PREFIX + strCanal );
-            }
-        }
-        return AppPropertiesService.getProperty( PROPERTY_CANAL_PREFIX + CANAL_UNKOWN );
     }
 
 }

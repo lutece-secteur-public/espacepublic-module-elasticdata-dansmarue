@@ -42,212 +42,60 @@ public class SignalementDataObject extends AbstractDataObject
 {
 
     // Variables declarations
-    private int _nId;
-    private Location _location;
-    private String _strCategory;
-    private String _strCanal;
-    private String _strStatut;
-    private String _strNumeroAnomalie;
-    private String _strDescriptionPublic;
-    private long _lTimestampPriseEnCompte;
-    private long _lTimestampCloture;
-    private String _strAlias;
+    private String _strNumero;
     private String _strPriorite;
-    private String _strType;
+    private String _strTypeSignalement;
+    private String _strAlias;
+    private String _strAliasMobile;
     private String _strDirection;
+    private String _strQuartier;
     private String _strAdresse;
+    private Double _nCoordX;
+    private Double _nCoordY;
     private String _strArrondissement;
-    private String _strEmailUsager;
+    private String _strSecteur;
+    private String _strDateCeration;
+    private String _strHeureCeration;
+    private String _strEtat;
+    private String _strMailUsager;
     private String _strCommentaireUsager;
-    private int _nPhotosCount;
-    private String _strRaisonsRejet;
+    private int    _nNbPhotos;
+    private String _strRaisonRejet;
+    private int    _nNbSuivis;
+    private int    _nNbFelicitations;
+    private String _strDateCloture;
+    private int    _nIsPhotoServiceFait;
+    private String _strMailDestinataireCourriel;
+    private String _strCourrielExpediteur;
+    private String _strDateEnvoiCourriel;
+    private int    _nIdMailServiceFait;
+    private String _strExecuteurServiceFait;
+    private String _strDateDerniereAction;
+    private String _strDatePrevuTraitement;
+    private String _strCommentaireAgentTerrain;
+    private String _strExecuteurRejet;
+    private String _strExecuteurMiseEnSurvreillance;
+    private int    _nNbRequalifications;
+
+    // DMR-1994 5 colonnes vides pour l'implémentation dans Digdash
+    private String _strColonneVide1 = "";
+    private String _strColonneVide2 = "";
+    private String _strColonneVide3 = "";
+    private String _strColonneVide4 = "";
+    private String _strColonneVide5 = "";
 
     /**
-     * Returns the Id
      *
-     * @return The Id
+     * @return _strNumero
      */
-    public int getIdSignalementDataObject()
+    public String getNumero( )
     {
-        return _nId;
+        return _strNumero;
     }
 
     /**
-     * Sets the Id
      *
-     * @param nId The Id
-     */
-    public void setId( int nId )
-    {
-        _nId = nId;
-    }
-
-    /**
-     * Returns the Location
-     *
-     * @return The Location
-     */
-    public Location getLocation()
-    {
-        return _location;
-    }
-
-    /**
-     * Sets the Location
-     *
-     * @param location The Location
-     */
-    public void setLocation( Location location )
-    {
-        _location = location;
-    }
-
-    /**
-     * Returns the Category
-     *
-     * @return The Category
-     */
-    public String getCategory()
-    {
-        return _strCategory;
-    }
-
-    /**
-     * Sets the Category
-     *
-     * @param strCategory The Category
-     */
-    public void setCategory( String strCategory )
-    {
-        _strCategory = strCategory;
-    }
-
-    /**
-     * Returns the Canal
-     *
-     * @return The Canal
-     */
-    public String getCanal()
-    {
-        return _strCanal;
-    }
-
-    /**
-     * Sets the Canal
-     *
-     * @param strCanal The Canal
-     */
-    public void setCanal( String strCanal )
-    {
-        _strCanal = strCanal;
-    }
-
-    /**
-     * Returns the Statut
-     *
-     * @return The Statut
-     */
-    public String getStatut()
-    {
-        return _strStatut;
-    }
-
-    /**
-     * Sets the Statut
-     *
-     * @param strStatut The Statut
-     */
-    public void setStatut( String strStatut )
-    {
-        _strStatut = strStatut;
-    }
-
-    /**
-     * Returns the NumeroAnomalie
-     *
-     * @return The NumeroAnomalie
-     */
-    public String getNumeroAnomalie()
-    {
-        return _strNumeroAnomalie;
-    }
-
-    /**
-     * Sets the NumeroAnomalie
-     *
-     * @param strNumeroAnomalie The NumeroAnomalie
-     */
-    public void setNumeroAnomalie( String strNumeroAnomalie )
-    {
-        _strNumeroAnomalie = strNumeroAnomalie;
-    }
-
-    /**
-     * Returns the DescriptionPublic
-     *
-     * @return The DescriptionPublic
-     */
-    public String getDescriptionPublic()
-    {
-        return _strDescriptionPublic;
-    }
-
-    /**
-     * Sets the DescriptionPublic
-     *
-     * @param strDescriptionPublic The DescriptionPublic
-     */
-    public void setDescriptionPublic( String strDescriptionPublic )
-    {
-        _strDescriptionPublic = strDescriptionPublic;
-    }
-
-    /**
-     * @return the TimestampPriseEnCompte
-     */
-    public long getTimestampPriseEnCompte() {
-        return _lTimestampPriseEnCompte;
-    }
-
-    /**
-     * @param lTimestampPriseEnCompte the TimestampPriseEnCompte to set
-     */
-    public void setTimestampPriseEnCompte(long lTimestampPriseEnCompte) {
-        _lTimestampPriseEnCompte = lTimestampPriseEnCompte;
-    }
-
-    /**
-     * @return the TimestampCloture
-     */
-    public long getTimestampCloture() {
-        return _lTimestampCloture;
-    }
-
-    /**
-     * @param lTimestampCloture the TimestampCloture to set
-     */
-    public void setTimestampCloture(long lTimestampCloture) {
-        _lTimestampCloture = lTimestampCloture;
-    }
-
-    /**
-     * @return the Alias
-     */
-    public String getAlias( )
-    {
-        return _strAlias;
-    }
-
-    /**
-     * @param strAlias the Alias to set
-     */
-    public void setAlias( String strAlias )
-    {
-        _strAlias = strAlias;
-    }
-
-    /**
-     * @return the Priorite
+     * @return _strPriorite
      */
     public String getPriorite( )
     {
@@ -255,31 +103,26 @@ public class SignalementDataObject extends AbstractDataObject
     }
 
     /**
-     * @param strPriorite the Priorite to set
+     *
+     * @return _strTypeSignalement
      */
-    public void setPriorite( String strPriorite )
+    public String getTypeSignalement( )
     {
-        _strPriorite = strPriorite;
+        return _strTypeSignalement;
     }
 
     /**
-     * @return the Type
+     *
+     * @return _strAlias
      */
-    public String getType( )
+    public String getAlias( )
     {
-        return _strType;
+        return _strAlias;
     }
 
     /**
-     * @param strType the Type to set
-     */
-    public void setType( String strType )
-    {
-        _strType = strType;
-    }
-
-    /**
-     * @return the Direction
+     *
+     * @return _strDirection
      */
     public String getDirection( )
     {
@@ -287,15 +130,17 @@ public class SignalementDataObject extends AbstractDataObject
     }
 
     /**
-     * @param strDirection the Direction to set
+     *
+     * @return _strQuartier
      */
-    public void setDirection( String strDirection )
+    public String getQuartier( )
     {
-        _strDirection = strDirection;
+        return _strQuartier;
     }
 
     /**
-     * @return the Adresse
+     *
+     * @return _strAdresse
      */
     public String getAdresse( )
     {
@@ -303,15 +148,26 @@ public class SignalementDataObject extends AbstractDataObject
     }
 
     /**
-     * @param strAdresse the Adresse to set
+     *
+     * @return _nCoordX
      */
-    public void setAdresse( String strAdresse )
+    public Double getCoordX( )
     {
-        _strAdresse = strAdresse;
+        return _nCoordX;
     }
 
     /**
-     * @return the Arrondissement
+     *
+     * @return _nCoordY
+     */
+    public Double getCoordY( )
+    {
+        return _nCoordY;
+    }
+
+    /**
+     *
+     * @return _strArrondissement
      */
     public String getArrondissement( )
     {
@@ -319,31 +175,53 @@ public class SignalementDataObject extends AbstractDataObject
     }
 
     /**
-     * @param strArrondissement the Arrondissement to set
+     *
+     * @return _strSecteur
      */
-    public void setArrondissement( String strArrondissement )
+    public String getSecteur( )
     {
-        _strArrondissement = strArrondissement;
+        return _strSecteur;
     }
 
     /**
-     * @return the EmailUsager
+     *
+     * @return _strDateCeration
      */
-    public String getEmailUsager( )
+    public String getDateCeration( )
     {
-        return _strEmailUsager;
+        return _strDateCeration;
     }
 
     /**
-     * @param strEmailUsager the EmailUsager to set
+     *
+     * @return _strHeureCeration
      */
-    public void setEmailUsager( String strEmailUsager )
+    public String getHeureCeration( )
     {
-        _strEmailUsager = strEmailUsager;
+        return _strHeureCeration;
     }
 
     /**
-     * @return the CommentaireUsager
+     *
+     * @return _strEtat
+     */
+    public String getEtat( )
+    {
+        return _strEtat;
+    }
+
+    /**
+     *
+     * @return _strMailUsager
+     */
+    public String getMailUsager( )
+    {
+        return _strMailUsager;
+    }
+
+    /**
+     *
+     * @return _strCommentaireUsager
      */
     public String getCommentaireUsager( )
     {
@@ -351,43 +229,522 @@ public class SignalementDataObject extends AbstractDataObject
     }
 
     /**
-     * @param strCommentaireUsager the CommentaireUsager to set
+     *
+     * @return _nNbPhotos
      */
-    public void setCommentaireUsager( String strCommentaireUsager )
+    public int getNbPhotos( )
     {
-        _strCommentaireUsager = strCommentaireUsager;
+        return _nNbPhotos;
     }
 
     /**
-     * @return the PhotosCount
+     *
+     * @return _strRaisonRejet
      */
-    public int getPhotosCount( )
+    public String getRaisonRejet( )
     {
-        return _nPhotosCount;
+        return _strRaisonRejet;
     }
 
     /**
-     * @param nPhotosCount the PhotosCount to set
+     *
+     * @return _nNbSuivis
      */
-    public void setPhotosCount( int nPhotosCount )
+    public int getNbSuivis( )
     {
-        _nPhotosCount = nPhotosCount;
+        return _nNbSuivis;
     }
 
     /**
-     * @return the RaisonsRejet
+     *
+     * @return _nNbFelicitations
      */
-    public String getRaisonsRejet( )
+    public int getNbFelicitations( )
     {
-        return _strRaisonsRejet;
+        return _nNbFelicitations;
     }
 
     /**
-     * @param strRaisonsRejet the RaisonsRejet to set
+     *
+     * @return _strDateCloture
      */
-    public void setRaisonsRejet( String strRaisonsRejet )
+    public String getDateCloture( )
     {
-        _strRaisonsRejet = strRaisonsRejet;
+        return _strDateCloture;
+    }
+
+    /**
+     *
+     * @return _nIsPhotoServiceFait
+     */
+    public int getIsPhotoServiceFait( )
+    {
+
+        return _nIsPhotoServiceFait;
+    }
+
+    /**
+     *
+     * @return _strMailDestinataireCourriel
+     */
+    public String getMailDestinataireCourriel( )
+    {
+        return _strMailDestinataireCourriel;
+    }
+
+    /**
+     *
+     * @return _strCourrielExpediteur
+     */
+    public String getCourrielExpediteur( )
+    {
+        return _strCourrielExpediteur;
+    }
+
+    /**
+     *
+     * @return _strDateEnvoiCourriel
+     */
+    public String getDateEnvoiCourriel( )
+    {
+        return _strDateEnvoiCourriel;
+    }
+
+    /**
+     *
+     * @return _nIdMailServiceFait
+     */
+    public int getIdMailServiceFait( )
+    {
+        return _nIdMailServiceFait;
+    }
+
+    /**
+     *
+     * @return _strExecuteurServiceFait
+     */
+    public String getExecuteurServiceFait( )
+    {
+        return _strExecuteurServiceFait;
+    }
+
+    /**
+     *
+     * @return _strDateDerniereAction
+     */
+    public String getDateDerniereAction( )
+    {
+        return _strDateDerniereAction;
+    }
+
+    /**
+     *
+     * @return _strDatePrevuTraitement
+     */
+    public String getDatePrevuTraitement( )
+    {
+        return _strDatePrevuTraitement;
+    }
+
+    /**
+     *
+     * @return _strCommentaireAgentTerrain
+     */
+    public String getCommentaireAgentTerrain( )
+    {
+        return _strCommentaireAgentTerrain;
+    }
+
+    /**
+     *
+     * @return _strExecuteurRejet
+     */
+    public String getExecuteurRejet( )
+    {
+        return _strExecuteurRejet;
+    }
+
+    /**
+     *
+     * @return _strExecuteurMiseEnSurvreillance
+     */
+    public String getExecuteurMiseEnSurvreillance( )
+    {
+        return _strExecuteurMiseEnSurvreillance;
+    }
+
+    /**
+     *
+     * @return _nNbRequalifications
+     */
+    public int getNbRequalifications( )
+    {
+        return _nNbRequalifications;
+    }
+
+    /**
+     *
+     * @param numero
+     */
+    public void setNumero( String numero )
+    {
+        _strNumero = numero;
+    }
+
+    /**
+     *
+     * @param priorite
+     */
+    public void setPriorite( String priorite )
+    {
+        _strPriorite = priorite;
+    }
+
+    /**
+     *
+     * @param typeSignalement
+     */
+    public void setTypeSignalement( String typeSignalement )
+    {
+        _strTypeSignalement = typeSignalement;
+    }
+
+    /**
+     *
+     * @param alias
+     */
+    public void setAlias( String alias )
+    {
+        _strAlias = alias;
+    }
+
+    /**
+     *
+     * @param direction
+     */
+    public void setDirection( String direction )
+    {
+        _strDirection = direction;
+    }
+
+    /**
+     *
+     * @param quartier
+     */
+    public void setQuartier( String quartier )
+    {
+        _strQuartier = quartier;
+    }
+
+    /**
+     *
+     * @param adresse
+     */
+    public void setAdresse( String adresse )
+    {
+        _strAdresse = adresse;
+    }
+
+    /**
+     *
+     * @param coordX
+     */
+    public void setCoordX( Double coordX )
+    {
+        _nCoordX = coordX;
+    }
+
+    /**
+     *
+     * @param coordY
+     */
+    public void setCoordY( Double coordY )
+    {
+        _nCoordY = coordY;
+    }
+
+    /**
+     *
+     * @param arrondissement
+     */
+    public void setArrondissement( String arrondissement )
+    {
+        _strArrondissement = arrondissement;
+    }
+
+    /**
+     *
+     * @param secteur
+     */
+    public void setSecteur( String secteur )
+    {
+        _strSecteur = secteur;
+    }
+
+    /**
+     *
+     * @param dateCeration
+     */
+    public void setDateCeration( String dateCeration )
+    {
+        _strDateCeration = dateCeration;
+    }
+
+    /**
+     *
+     * @param heureCeration
+     */
+    public void setHeureCeration( String heureCeration )
+    {
+        _strHeureCeration = heureCeration;
+    }
+
+    /**
+     *
+     * @param etat
+     */
+    public void setEtat( String etat )
+    {
+        _strEtat = etat;
+    }
+
+    /**
+     *
+     * @param mailUsager
+     */
+    public void setMailUsager( String mailUsager )
+    {
+        _strMailUsager = mailUsager;
+    }
+
+    /**
+     *
+     * @param commentaireUsager
+     */
+    public void setCommentaireUsager( String commentaireUsager )
+    {
+        _strCommentaireUsager = commentaireUsager;
+    }
+
+    /**
+     *
+     * @param nbPhotos
+     */
+    public void setNbPhotos( int nbPhotos )
+    {
+        _nNbPhotos = nbPhotos;
+    }
+
+    /**
+     *
+     * @param raisonRejet
+     */
+    public void setRaisonRejet( String raisonRejet )
+    {
+        _strRaisonRejet = raisonRejet;
+    }
+
+    /**
+     *
+     * @param nbSuivis
+     */
+    public void setNbSuivis( int nbSuivis )
+    {
+        _nNbSuivis = nbSuivis;
+    }
+
+    /**
+     *
+     * @param nbFelicitations
+     */
+    public void setNbFelicitations( int nbFelicitations )
+    {
+        _nNbFelicitations = nbFelicitations;
+    }
+
+    /**
+     *
+     * @param dateCloture
+     */
+    public void setDateCloture( String dateCloture )
+    {
+        _strDateCloture = dateCloture;
+    }
+
+    /**
+     *
+     * @param isPhotoServiceFait
+     */
+    public void setIsPhotoServiceFait( int isPhotoServiceFait )
+    {
+        _nIsPhotoServiceFait = isPhotoServiceFait;
+    }
+
+    /**
+     *
+     * @param mailDestinataireCourriel
+     */
+    public void setMailDestinataireCourriel( String mailDestinataireCourriel )
+    {
+        _strMailDestinataireCourriel = mailDestinataireCourriel;
+    }
+
+    /**
+     *
+     * @param courrielExpediteur
+     */
+    public void setCourrielExpediteur( String courrielExpediteur )
+    {
+        _strCourrielExpediteur = courrielExpediteur;
+    }
+
+    /**
+     *
+     * @param dateEnvoiCourriel
+     */
+    public void setDateEnvoiCourriel( String dateEnvoiCourriel )
+    {
+        _strDateEnvoiCourriel = dateEnvoiCourriel;
+    }
+
+    /**
+     *
+     * @param idMailServiceFait
+     */
+    public void setIdMailServiceFait( int idMailServiceFait )
+    {
+        _nIdMailServiceFait = idMailServiceFait;
+    }
+
+    /**
+     *
+     * @param executeurServiceFait
+     */
+    public void setExecuteurServiceFait( String executeurServiceFait )
+    {
+        _strExecuteurServiceFait = executeurServiceFait;
+    }
+
+    /**
+     *
+     * @param dateDerniereAction
+     */
+    public void setDateDerniereAction( String dateDerniereAction )
+    {
+        _strDateDerniereAction = dateDerniereAction;
+    }
+
+    /**
+     *
+     * @param datePrevuTraitement
+     */
+    public void setDatePrevuTraitement( String datePrevuTraitement )
+    {
+        _strDatePrevuTraitement = datePrevuTraitement;
+    }
+
+    /**
+     *
+     * @param commentaireAgentTerrain
+     */
+    public void setCommentaireAgentTerrain( String commentaireAgentTerrain )
+    {
+        _strCommentaireAgentTerrain = commentaireAgentTerrain;
+    }
+
+    /**
+     *
+     * @param executeurRejet
+     */
+    public void setExecuteurRejet( String executeurRejet )
+    {
+        _strExecuteurRejet = executeurRejet;
+    }
+
+    /**
+     *
+     * @param executeurMiseEnSurvreillance
+     */
+    public void setExecuteurMiseEnSurvreillance( String executeurMiseEnSurvreillance )
+    {
+        _strExecuteurMiseEnSurvreillance = executeurMiseEnSurvreillance;
+    }
+
+    /**
+     *
+     * @return _strAliasMobile
+     */
+    public String getAliasMobile( )
+    {
+        return _strAliasMobile;
+    }
+
+    /**
+     *
+     * @param aliasMobile
+     */
+    public void setAliasMobile( String aliasMobile )
+    {
+        _strAliasMobile = aliasMobile;
+    }
+
+    /**
+     *
+     * @param nbRequalifications
+     */
+    public void setNbRequalifications( int nbRequalifications )
+    {
+        _nNbRequalifications = nbRequalifications;
+    }
+
+    public String getColonneVide1( )
+    {
+        return _strColonneVide1;
+    }
+
+    public String getColonneVide2( )
+    {
+        return _strColonneVide2;
+    }
+
+    public String getColonneVide3( )
+    {
+        return _strColonneVide3;
+    }
+
+    public String getColonneVide4( )
+    {
+        return _strColonneVide4;
+    }
+
+    public String getColonneVide5( )
+    {
+        return _strColonneVide5;
+    }
+
+    public void setColonneVide1( String colonneVide1 )
+    {
+        _strColonneVide1 = colonneVide1;
+    }
+
+    public void setColonneVide2( String colonneVide2 )
+    {
+        _strColonneVide2 = colonneVide2;
+    }
+
+    public void setColonneVide3( String colonneVide3 )
+    {
+        _strColonneVide3 = colonneVide3;
+    }
+
+    public void setColonneVide4( String colonneVide4 )
+    {
+        _strColonneVide4 = colonneVide4;
+    }
+
+    public void setColonneVide5( String colonneVide5 )
+    {
+        _strColonneVide5 = colonneVide5;
     }
 
 }
