@@ -76,6 +76,7 @@ public class SignalementDataObject extends AbstractDataObject
     private String _strExecuteurRejet;
     private String _strExecuteurMiseEnSurvreillance;
     private int    _nNbRequalifications;
+    private String _strHeureServiceFait;
 
     // DMR-1994 5 colonnes vides pour l'implémentation dans Digdash
     private String _strColonneVide1 = "";
@@ -747,4 +748,13 @@ public class SignalementDataObject extends AbstractDataObject
         _strColonneVide5 = colonneVide5;
     }
 
+	public String getHeureServiceFait() {
+		return _strHeureServiceFait;
+	}
+
+	public void setHeureServiceFait(String heureServiceFait) {
+		_strHeureServiceFait = heureServiceFait;
+	}
+
+    
 }
