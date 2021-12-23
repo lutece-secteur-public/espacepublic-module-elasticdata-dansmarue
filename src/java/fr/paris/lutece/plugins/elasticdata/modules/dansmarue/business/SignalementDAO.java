@@ -49,11 +49,12 @@ import fr.paris.lutece.util.sql.DAOUtil;
 public class SignalementDAO
 {
 
-    private static final String SQL_QUERY_SELECTALL = "SELECT numero, priorite, type_signalement, alias, alias_mobile, direction, quartier, adresse, coord_x, coord_y, "
-            + "arrondissement, secteur, date_creation, heure_creation, etat, mail_usager, commentaire_usager, nb_photos, raisons_rejet, "
-            + "nb_suivis, nb_felicitations, date_cloture, is_photo_service_fait, mail_destinataire_courriel, courriel_expediteur, date_envoi_courriel, "
-            + "id_mail_service_fait, executeur_service_fait, date_derniere_action, date_prevu_traitement, commentaire_agent_terrain, executeur_rejet, "
-            + "executeur_mise_surveillance, nb_requalifications " + "FROM signalement_export WHERE to_date(date_creation, 'DD/MM/YYYY') >= ? OR to_date(date_derniere_action, 'DD/MM/YYYY') >= ?;";
+    private static final String SQL_QUERY_SELECTALL = "SELECT se.numero, priorite, type_signalement, alias, alias_mobile, direction, quartier, adresse, coord_x, coord_y, "
+    		+ " arrondissement, secteur, se.date_creation, heure_creation, etat, mail_usager, commentaire_usager, nb_photos, raisons_rejet, "
+    		+ " nb_suivis, nb_felicitations, date_cloture, is_photo_service_fait, mail_destinataire_courriel, se.courriel_expediteur, date_envoi_courriel, "
+    		+ " id_mail_service_fait, executeur_service_fait, date_derniere_action, date_prevu_traitement, se.commentaire_agent_terrain, executeur_rejet, "
+    		+ " executeur_mise_surveillance, nb_requalifications, to_char(ss.service_fait_date_passage,'HH24:MI') heure_sf FROM signalement_export se join signalement_signalement ss on ss.id_signalement = se.id_signalement "
+    		+ " WHERE to_date(se.date_creation, 'DD/MM/YYYY') >= ? OR to_date(date_derniere_action, 'DD/MM/YYYY') >= ?";
 
     /**
      * Select signalement for export ElasticSearch
@@ -111,6 +112,7 @@ public class SignalementDAO
                 signalement.setExecuteurRejet( daoUtil.getString( 32 ) );
                 signalement.setExecuteurMiseEnSurvreillance( daoUtil.getString( 33 ) );
                 signalement.setNbRequalifications( daoUtil.getInt( 34 ) );
+                signalement.setHeureServiceFait( daoUtil.getString( 35 ) );
 
                 signalement.setColonneVide1( StringUtils.EMPTY );
                 signalement.setColonneVide2( StringUtils.EMPTY );
