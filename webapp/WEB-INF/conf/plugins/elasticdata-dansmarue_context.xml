@@ -9,7 +9,6 @@
            <property name="id" value="DemandDataSource" />
            <property name="name" value="Base des signalements DansMaRue" />
            <property name="targetIndexName" value="signalements" />
-           <property name="dataType" value="signalement" />
            <property name="fullIndexingDaemon" value="true" />
            <property name="mappings">
                <value><![CDATA[
