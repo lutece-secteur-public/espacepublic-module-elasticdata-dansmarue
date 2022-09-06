@@ -33,15 +33,14 @@
  */
 package fr.paris.lutece.plugins.elasticdata.modules.dansmarue.business;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Collection;
-
-import org.apache.commons.lang.StringUtils;
-
 import fr.paris.lutece.plugins.elasticdata.business.DataObject;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.util.sql.DAOUtil;
+import org.apache.commons.lang3.StringUtils;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * SignalementDAO
@@ -63,9 +62,9 @@ public class SignalementDAO
      *          last Indexation date
      * @return Collection to send to ElasticSearch
      */
-    public Collection<DataObject> selectSignalementDataObjectsList( Plugin plugin, Date lastIndexation )
+    public List<DataObject> selectSignalementDataObjectsList( Plugin plugin, Date lastIndexation )
     {
-        Collection<DataObject> listSignalementDataObjects = new ArrayList<>( );
+        List<DataObject> listSignalementDataObjects = new ArrayList<>( );
         try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin ) )
         {
 
