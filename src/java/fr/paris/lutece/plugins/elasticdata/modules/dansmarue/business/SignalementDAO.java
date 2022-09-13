@@ -33,14 +33,15 @@
  */
 package fr.paris.lutece.plugins.elasticdata.modules.dansmarue.business;
 
-import fr.paris.lutece.plugins.elasticdata.business.DataObject;
-import fr.paris.lutece.portal.service.plugin.Plugin;
-import fr.paris.lutece.util.sql.DAOUtil;
-import org.apache.commons.lang3.StringUtils;
-
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+
+import fr.paris.lutece.plugins.elasticdata.business.DataObject;
+import fr.paris.lutece.portal.service.plugin.Plugin;
+import fr.paris.lutece.util.sql.DAOUtil;
 
 /**
  * SignalementDAO
@@ -48,12 +49,12 @@ import java.util.List;
 public class SignalementDAO
 {
 
-    private static final String SQL_QUERY_SELECTALL = "SELECT se.numero, priorite, type_signalement, alias, alias_mobile, direction, quartier, adresse, coord_x, coord_y, "
-    		+ " arrondissement, secteur, se.date_creation, heure_creation, etat, mail_usager, commentaire_usager, nb_photos, raisons_rejet, "
-    		+ " nb_suivis, nb_felicitations, date_cloture, is_photo_service_fait, mail_destinataire_courriel, se.courriel_expediteur, date_envoi_courriel, "
-    		+ " id_mail_service_fait, executeur_service_fait, date_derniere_action, date_prevu_traitement, se.commentaire_agent_terrain, executeur_rejet, "
-    		+ " executeur_mise_surveillance, nb_requalifications, to_char(ss.service_fait_date_passage,'HH24:MI') heure_sf FROM signalement_export se join signalement_signalement ss on ss.id_signalement = se.id_signalement "
-    		+ " WHERE to_date(se.date_creation, 'DD/MM/YYYY') >= ? OR to_date(date_derniere_action, 'DD/MM/YYYY') >= ?";
+    private static final String SQL_QUERY_SELECTALL = "SELECT ss.id_signalement, se.numero, priorite, type_signalement, alias, alias_mobile, direction, quartier, adresse, coord_x, coord_y, "
+            + " arrondissement, secteur, se.date_creation, heure_creation, etat, mail_usager, commentaire_usager, nb_photos, raisons_rejet, "
+            + " nb_suivis, nb_felicitations, date_cloture, is_photo_service_fait, mail_destinataire_courriel, se.courriel_expediteur, date_envoi_courriel, "
+            + " id_mail_service_fait, executeur_service_fait, date_derniere_action, date_prevu_traitement, se.commentaire_agent_terrain, executeur_rejet, "
+            + " executeur_mise_surveillance, nb_requalifications, to_char(ss.service_fait_date_passage,'HH24:MI') heure_sf FROM signalement_export se join signalement_signalement ss on ss.id_signalement = se.id_signalement "
+            + " WHERE to_date(se.date_creation, 'DD/MM/YYYY') >= ? OR to_date(date_derniere_action, 'DD/MM/YYYY') >= ?";
 
     /**
      * Select signalement for export ElasticSearch
@@ -77,41 +78,42 @@ public class SignalementDAO
             {
                 SignalementDataObject signalement = new SignalementDataObject( );
 
-                signalement.setNumero( daoUtil.getString( 1 ) );
-                signalement.setPriorite( daoUtil.getString( 2 ) );
-                signalement.setTypeSignalement( daoUtil.getString( 3 ) );
-                signalement.setAlias( daoUtil.getString( 4 ) );
-                signalement.setAliasMobile( daoUtil.getString( 5 ) );
-                signalement.setDirection( daoUtil.getString( 6 ) );
-                signalement.setQuartier( daoUtil.getString( 7 ) );
-                signalement.setAdresse( daoUtil.getString( 8 ) );
-                signalement.setCoordX( daoUtil.getDouble( 9 ) );
-                signalement.setCoordY( daoUtil.getDouble( 10 ) );
-                signalement.setArrondissement( daoUtil.getString( 11 ) );
-                signalement.setSecteur( daoUtil.getString( 12 ) );
-                signalement.setDateCeration( daoUtil.getString( 13 ) );
-                signalement.setHeureCeration( daoUtil.getString( 14 ) );
-                signalement.setEtat( daoUtil.getString( 15 ) );
-                signalement.setMailUsager( daoUtil.getString( 16 ) );
-                signalement.setCommentaireUsager( daoUtil.getString( 17 ) );
-                signalement.setNbPhotos( daoUtil.getInt( 18 ) );
-                signalement.setRaisonRejet( daoUtil.getString( 19 ) );
-                signalement.setNbSuivis( daoUtil.getInt( 20 ) );
-                signalement.setNbFelicitations( daoUtil.getInt( 21 ) );
-                signalement.setDateCloture( daoUtil.getString( 22 ) );
-                signalement.setIsPhotoServiceFait( daoUtil.getInt( 23 ) );
-                signalement.setMailDestinataireCourriel( daoUtil.getString( 24 ) );
-                signalement.setCourrielExpediteur( daoUtil.getString( 25 ) );
-                signalement.setDateEnvoiCourriel( daoUtil.getString( 26 ) );
-                signalement.setIdMailServiceFait( daoUtil.getInt( 27 ) );
-                signalement.setExecuteurServiceFait( daoUtil.getString( 28 ) );
-                signalement.setDateDerniereAction( daoUtil.getString( 29 ) );
-                signalement.setDatePrevuTraitement( daoUtil.getString( 30 ) );
-                signalement.setCommentaireAgentTerrain( daoUtil.getString( 31 ) );
-                signalement.setExecuteurRejet( daoUtil.getString( 32 ) );
-                signalement.setExecuteurMiseEnSurvreillance( daoUtil.getString( 33 ) );
-                signalement.setNbRequalifications( daoUtil.getInt( 34 ) );
-                signalement.setHeureServiceFait( daoUtil.getString( 35 ) );
+                signalement.setIdSignalement( daoUtil.getLong( 1 ) );
+                signalement.setNumero( daoUtil.getString( 2 ) );
+                signalement.setPriorite( daoUtil.getString( 3 ) );
+                signalement.setTypeSignalement( daoUtil.getString( 4 ) );
+                signalement.setAlias( daoUtil.getString( 5 ) );
+                signalement.setAliasMobile( daoUtil.getString( 6 ) );
+                signalement.setDirection( daoUtil.getString( 7 ) );
+                signalement.setQuartier( daoUtil.getString( 8 ) );
+                signalement.setAdresse( daoUtil.getString( 9 ) );
+                signalement.setCoordX( daoUtil.getDouble( 10 ) );
+                signalement.setCoordY( daoUtil.getDouble( 11 ) );
+                signalement.setArrondissement( daoUtil.getString( 12 ) );
+                signalement.setSecteur( daoUtil.getString( 13 ) );
+                signalement.setDateCeration( daoUtil.getString( 14 ) );
+                signalement.setHeureCeration( daoUtil.getString( 15 ) );
+                signalement.setEtat( daoUtil.getString( 16 ) );
+                signalement.setMailUsager( daoUtil.getString( 17 ) );
+                signalement.setCommentaireUsager( daoUtil.getString( 18 ) );
+                signalement.setNbPhotos( daoUtil.getInt( 19 ) );
+                signalement.setRaisonRejet( daoUtil.getString( 20 ) );
+                signalement.setNbSuivis( daoUtil.getInt( 21 ) );
+                signalement.setNbFelicitations( daoUtil.getInt( 22 ) );
+                signalement.setDateCloture( daoUtil.getString( 23 ) );
+                signalement.setIsPhotoServiceFait( daoUtil.getInt( 24 ) );
+                signalement.setMailDestinataireCourriel( daoUtil.getString( 25 ) );
+                signalement.setCourrielExpediteur( daoUtil.getString( 26 ) );
+                signalement.setDateEnvoiCourriel( daoUtil.getString( 27 ) );
+                signalement.setIdMailServiceFait( daoUtil.getInt( 28 ) );
+                signalement.setExecuteurServiceFait( daoUtil.getString( 29 ) );
+                signalement.setDateDerniereAction( daoUtil.getString( 30 ) );
+                signalement.setDatePrevuTraitement( daoUtil.getString( 31 ) );
+                signalement.setCommentaireAgentTerrain( daoUtil.getString( 32 ) );
+                signalement.setExecuteurRejet( daoUtil.getString( 33 ) );
+                signalement.setExecuteurMiseEnSurvreillance( daoUtil.getString( 34 ) );
+                signalement.setNbRequalifications( daoUtil.getInt( 35 ) );
+                signalement.setHeureServiceFait( daoUtil.getString( 36 ) );
 
                 signalement.setColonneVide1( StringUtils.EMPTY );
                 signalement.setColonneVide2( StringUtils.EMPTY );
