@@ -42,6 +42,7 @@ public class SignalementDataObject extends AbstractDataObject
 {
 
     // Variables declarations
+    private long   _nIdSignalement;
     private String _strNumero;
     private String _strPriorite;
     private String _strTypeSignalement;
@@ -84,6 +85,19 @@ public class SignalementDataObject extends AbstractDataObject
     private String _strColonneVide3 = "";
     private String _strColonneVide4 = "";
     private String _strColonneVide5 = "";
+
+
+
+
+    /**
+     *
+     * @return _nIdSignalement
+     */
+    public long getIdSignalement( )
+    {
+        return _nIdSignalement;
+    }
+
 
     /**
      *
@@ -381,6 +395,15 @@ public class SignalementDataObject extends AbstractDataObject
     public int getNbRequalifications( )
     {
         return _nNbRequalifications;
+    }
+
+    /**
+     *
+     * @param idSignalement
+     */
+    public void setIdSignalement( long idSignalement )
+    {
+        _nIdSignalement = idSignalement;
     }
 
     /**
@@ -748,13 +771,13 @@ public class SignalementDataObject extends AbstractDataObject
         _strColonneVide5 = colonneVide5;
     }
 
-	public String getHeureServiceFait() {
-		return _strHeureServiceFait;
-	}
+    public String getHeureServiceFait() {
+        return _strHeureServiceFait;
+    }
 
-	public void setHeureServiceFait(String heureServiceFait) {
-		_strHeureServiceFait = heureServiceFait;
-	}
+    public void setHeureServiceFait(String heureServiceFait) {
+        _strHeureServiceFait = heureServiceFait;
+    }
 
-    
+
 }
