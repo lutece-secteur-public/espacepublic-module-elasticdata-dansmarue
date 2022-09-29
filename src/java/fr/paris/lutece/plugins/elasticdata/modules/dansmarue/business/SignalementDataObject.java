@@ -78,6 +78,10 @@ public class SignalementDataObject extends AbstractDataObject
     private String _strExecuteurMiseEnSurvreillance;
     private int    _nNbRequalifications;
     private String _strHeureServiceFait;
+    private String _strExecuteurPremiereRequalification;
+    private String _strExecuteurSecondeRequalification;
+    private int    _nPremierIdTypeSignalement;
+    private String _strPremiereDirection;
 
     // DMR-1994 5 colonnes vides pour l'implémentation dans Digdash
     private String _strColonneVide1 = "";
@@ -85,9 +89,6 @@ public class SignalementDataObject extends AbstractDataObject
     private String _strColonneVide3 = "";
     private String _strColonneVide4 = "";
     private String _strColonneVide5 = "";
-
-
-
 
     /**
      *
@@ -97,7 +98,6 @@ public class SignalementDataObject extends AbstractDataObject
     {
         return _nIdSignalement;
     }
-
 
     /**
      *
@@ -771,13 +771,54 @@ public class SignalementDataObject extends AbstractDataObject
         _strColonneVide5 = colonneVide5;
     }
 
-    public String getHeureServiceFait() {
+    public String getHeureServiceFait( )
+    {
         return _strHeureServiceFait;
     }
 
-    public void setHeureServiceFait(String heureServiceFait) {
+    public void setHeureServiceFait( String heureServiceFait )
+    {
         _strHeureServiceFait = heureServiceFait;
     }
 
+    public String getExecuteurPremiereRequalification( )
+    {
+        return _strExecuteurPremiereRequalification;
+    }
+
+    public String getExecuteurSecondeRequalification( )
+    {
+        return _strExecuteurSecondeRequalification;
+    }
+
+    public int getPremierIdTypeSignalement( )
+    {
+        return _nPremierIdTypeSignalement;
+    }
+
+    public String getPremiereDirection( )
+    {
+        return _strPremiereDirection;
+    }
+
+    public void setExecuteurPremiereRequalification( String executeurPremiereRequalification )
+    {
+        _strExecuteurPremiereRequalification = executeurPremiereRequalification;
+    }
+
+    public void setExecuteurSecondeRequalification( String executeurSecondeRequalification )
+    {
+        _strExecuteurSecondeRequalification = executeurSecondeRequalification;
+    }
+
+    public void setPremierIdTypeSignalement( int premierIdTypeSignalement )
+    {
+        _nPremierIdTypeSignalement = premierIdTypeSignalement;
+    }
+
+    public void setPremiereDirection( String premiereDirection )
+    {
+        _strPremiereDirection = premiereDirection;
+    }
 
 }
