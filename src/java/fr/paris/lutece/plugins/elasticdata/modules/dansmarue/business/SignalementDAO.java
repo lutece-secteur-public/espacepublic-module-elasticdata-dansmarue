@@ -53,7 +53,7 @@ public class SignalementDAO
             + " arrondissement, secteur, se.date_creation, heure_creation, etat, mail_usager, commentaire_usager, nb_photos, raisons_rejet, "
             + " nb_suivis, nb_felicitations, date_cloture, is_photo_service_fait, mail_destinataire_courriel, se.courriel_expediteur, date_envoi_courriel, "
             + " id_mail_service_fait, executeur_service_fait, date_derniere_action, date_prevu_traitement, se.commentaire_agent_terrain, executeur_rejet, "
-            + " executeur_mise_surveillance, nb_requalifications, to_char(ss.service_fait_date_passage,'HH24:MI') heure_sf FROM signalement_export se join signalement_signalement ss on ss.id_signalement = se.id_signalement "
+            + " executeur_mise_surveillance, nb_requalifications, to_char(ss.service_fait_date_passage,'HH24:MI') heure_sf, executeur_requalification, executeur_requalification_bis, premier_id_type_signalement, premier_direction FROM signalement_export se join signalement_signalement ss on ss.id_signalement = se.id_signalement "
             + " WHERE to_date(se.date_creation, 'DD/MM/YYYY') >= ? OR to_date(date_derniere_action, 'DD/MM/YYYY') >= ?";
 
     /**
@@ -114,6 +114,10 @@ public class SignalementDAO
                 signalement.setExecuteurMiseEnSurvreillance( daoUtil.getString( 34 ) );
                 signalement.setNbRequalifications( daoUtil.getInt( 35 ) );
                 signalement.setHeureServiceFait( daoUtil.getString( 36 ) );
+                signalement.setExecuteurPremiereRequalification( daoUtil.getString( 37 ) );
+                signalement.setExecuteurSecondeRequalification( daoUtil.getString( 38 ) );
+                signalement.setPremierIdTypeSignalement( daoUtil.getInt( 39 ) );
+                signalement.setPremiereDirection( daoUtil.getString( 40 ) );
 
                 signalement.setColonneVide1( StringUtils.EMPTY );
                 signalement.setColonneVide2( StringUtils.EMPTY );
