@@ -14,23 +14,21 @@
                <value><![CDATA[
 {
  "mappings": {
-    "signalement": {
-      "properties": {
-        "location": {
-          "type": "geo_point"
-        },
-        "timestamp": {
-          "format": "epoch_millis",
-          "type": "date"
-        },
-        "timestampPriseEnCompte": {
-          "format": "epoch_millis",
-          "type": "date"
-        },
-        "timestampCloture": {
-          "format": "epoch_millis",
-          "type": "date"
-        }
+    "properties": {
+      "location": {
+        "type": "geo_point"
+      },
+      "timestamp": {
+        "format": "epoch_millis",
+        "type": "date"
+      },
+      "timestampPriseEnCompte": {
+        "format": "epoch_millis",
+        "type": "date"
+      },
+      "timestampCloture": {
+        "format": "epoch_millis",
+        "type": "date"
       }
     }
   }
