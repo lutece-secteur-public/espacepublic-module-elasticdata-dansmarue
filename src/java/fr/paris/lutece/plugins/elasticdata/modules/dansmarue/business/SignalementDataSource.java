@@ -34,19 +34,18 @@
 
 package fr.paris.lutece.plugins.elasticdata.modules.dansmarue.business;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
 import fr.paris.lutece.plugins.elasticdata.business.AbstractDataSource;
 import fr.paris.lutece.plugins.elasticdata.business.DataObject;
 import fr.paris.lutece.portal.service.datastore.DatastoreService;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.plugin.PluginService;
 import fr.paris.lutece.util.date.DateUtil;
-
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 
 /**
  * SignalementDataSource
@@ -61,12 +60,15 @@ public class SignalementDataSource extends AbstractDataSource
     @Override
     public List<String> getIdDataObjects( )
     {
-        return Arrays.asList( "0" );
+        SignalementDAO dao = new SignalementDAO( );
+        return dao.selectFullIdsSignalement( _plugin );
+
     }
 
     @Override
     public List<DataObject> getDataObjects( List<String> list )
     {
+
         Date date = new Date( );
         Timestamp currentTimestamp = new Timestamp( date.getTime( ) );
         SimpleDateFormat sdf = new SimpleDateFormat( "dd/MM/yyyy" );
@@ -74,7 +76,7 @@ public class SignalementDataSource extends AbstractDataSource
         String lastIndexation = DatastoreService.getDataValue( KEY_DATE_LAST_INDEXATION, currentDate );
 
         SignalementDAO dao = new SignalementDAO( );
-        List<DataObject> toIndex = dao.selectSignalementDataObjectsList( _plugin, DateUtil.formatDateSql( lastIndexation, Locale.FRANCE ) );
+        List<DataObject> toIndex = dao.selectSignalementDataObjectsList( _plugin, DateUtil.formatDateSql( lastIndexation, Locale.FRANCE ), list  );
 
         DatastoreService.setDataValue( KEY_DATE_LAST_INDEXATION, currentDate );
 
