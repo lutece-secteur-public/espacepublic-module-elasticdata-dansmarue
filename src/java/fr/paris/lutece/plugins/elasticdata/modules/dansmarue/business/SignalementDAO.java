@@ -34,6 +34,7 @@
 package fr.paris.lutece.plugins.elasticdata.modules.dansmarue.business;
 
 import java.sql.Date;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,23 +50,33 @@ import fr.paris.lutece.util.sql.DAOUtil;
 public class SignalementDAO
 {
 
+    private static final String SQL_QUERY_SELECTALL_ID_SIGNALEMENT = "SELECT id_signalement FROM signalement_export";
+
     private static final String SQL_QUERY_SELECTALL = "SELECT ss.id_signalement, se.numero, priorite, type_signalement, alias, alias_mobile, direction, quartier, adresse, coord_x, coord_y, "
             + " arrondissement, secteur, se.date_creation, heure_creation, etat, mail_usager, commentaire_usager, nb_photos, raisons_rejet, "
             + " nb_suivis, nb_felicitations, date_cloture, is_photo_service_fait, mail_destinataire_courriel, se.courriel_expediteur, date_envoi_courriel, "
             + " id_mail_service_fait, executeur_service_fait, date_derniere_action, date_prevu_traitement, se.commentaire_agent_terrain, executeur_rejet, "
             + " executeur_mise_surveillance, nb_requalifications, to_char(ss.service_fait_date_passage,'HH24:MI') heure_sf, executeur_requalification, executeur_requalification_bis, premier_id_type_signalement, premier_direction FROM signalement_export se join signalement_signalement ss on ss.id_signalement = se.id_signalement";
 
+    private static final String SQL_QUERY_SELECTALL_WHERE_CLAUSE =" WHERE se.id_signalement IN ({0})";
+
     /**
      * Select signalement for export ElasticSearch
      * @param plugin
      * @param lastIndexation
      *          last Indexation date
+     * @param idsSignalementToIndex
+     *          list id signalement to index
      * @return Collection to send to ElasticSearch
      */
-    public List<DataObject> selectSignalementDataObjectsList( Plugin plugin, Date lastIndexation )
+    public List<DataObject> selectSignalementDataObjectsList( Plugin plugin, Date lastIndexation, List<String> idsSignalementToIndex )
     {
         List<DataObject> listSignalementDataObjects = new ArrayList<>( );
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin ) )
+
+        StringBuilder sbSQL = new StringBuilder( SQL_QUERY_SELECTALL );
+        sbSQL.append( MessageFormat.format( SQL_QUERY_SELECTALL_WHERE_CLAUSE, String.join( ",", idsSignalementToIndex ) ) );
+
+        try ( DAOUtil daoUtil = new DAOUtil( sbSQL.toString( ), plugin ) )
         {
 
             daoUtil.executeQuery( );
@@ -73,6 +84,9 @@ public class SignalementDAO
             while ( daoUtil.next( ) )
             {
                 SignalementDataObject signalement = new SignalementDataObject( );
+
+                signalement.setId( String.valueOf(  daoUtil.getLong( 1 )) );
+                signalement.setDocumentTypeName( "Signalement" );
 
                 signalement.setIdSignalement( daoUtil.getLong( 1 ) );
                 signalement.setNumero( daoUtil.getString( 2 ) );
@@ -127,6 +141,27 @@ public class SignalementDAO
         }
 
         return listSignalementDataObjects;
+    }
+
+    /**
+     * Select all ids Signalement for full Indexing daemon
+     * @param plugin
+     * @return List of all id signalement
+     */
+    public List<String> selectFullIdsSignalement (Plugin plugin) {
+
+        List<String> listIdsSignalement = new ArrayList<>( );
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_ID_SIGNALEMENT, plugin ) )
+        {
+            daoUtil.executeQuery( );
+
+            while ( daoUtil.next( ) )
+            {
+                listIdsSignalement.add( String.valueOf(  daoUtil.getLong( 1 )) );
+            }
+        }
+
+        return listIdsSignalement;
     }
 
 }
