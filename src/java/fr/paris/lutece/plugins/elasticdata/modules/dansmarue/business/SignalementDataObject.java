@@ -44,6 +44,7 @@ public class SignalementDataObject extends AbstractDataObject
     // Variables declarations
     private long   _nIdSignalement;
     private String _strNumero;
+    private String _strPrecisionTerrain;
     private String _strPriorite;
     private String _strTypeSignalement;
     private String _strAlias;
@@ -106,6 +107,15 @@ public class SignalementDataObject extends AbstractDataObject
     public String getNumero( )
     {
         return _strNumero;
+    }
+
+    /**
+     *
+     * @return _strPrecisionTerrain
+     */
+    public String getPrecisionTerrain( )
+    {
+        return _strPrecisionTerrain;
     }
 
     /**
@@ -413,6 +423,15 @@ public class SignalementDataObject extends AbstractDataObject
     public void setNumero( String numero )
     {
         _strNumero = numero;
+    }
+
+    /**
+     *
+     * @param precisionTerrain
+     */
+    public void setPrecisionTerrain( String precisionTerrain )
+    {
+        _strPrecisionTerrain = precisionTerrain;
     }
 
     /**
