@@ -51,7 +51,7 @@ public class FdtDAO
 
     private static final String SQL_QUERY_SELECTALL_ID_FDT       = "SELECT id FROM signalement_feuille_de_tournee";
 
-    private static final String SQL_QUERY_SELECTALL              = "SELECT fdt.id,fdt.nom,fdt.createur, to_char(fdt.date_creation, 'dd/MM/YYYY') as date_creation,  to_char(fdt.date_modification, 'dd/MM/YYYY') as date_modification, uu.\"label\" as direction, uu2.\"label\" as entite,  array_to_string(array_agg(se.numero),',') as ids_fonct, array_to_string(signalement_ids, ',') as ids_tech, fdt.nb_consultation"
+    private static final String SQL_QUERY_SELECTALL              = "SELECT fdt.id,fdt.nom,fdt.createur, to_char(fdt.date_creation, 'DD/MM/YYYY ; HH24:MI:SS') as date_creation,  to_char(fdt.date_modification, 'DD/MM/YYYY ; HH24:MI:SS') as date_modification, uu.\"label\" as direction, uu2.\"label\" as entite,  array_to_string(array_agg(se.numero),',') as ids_fonct, array_to_string(signalement_ids, ',') as ids_tech, fdt.nb_consultation"
             + " FROM signalement_feuille_de_tournee fdt left join unittree_unit uu on uu.id_unit = fdt.id_direction left join unittree_unit uu2 on uu2.id_unit = fdt.id_entite left join signalement_export se on se.id_signalement = any (fdt.signalement_ids::int[])";
 
     private static final String SQL_QUERY_SELECTALL_WHERE_CLAUSE = " WHERE fdt.id IN ({0})";
