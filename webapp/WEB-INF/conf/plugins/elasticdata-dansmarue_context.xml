@@ -37,6 +37,39 @@
             </value>
            </property>
        </bean>
+       
+       <bean id="elasticdata-dansmarue.fdtDataSource" class="fr.paris.lutece.plugins.elasticdata.modules.dansmarue.business.FdtDataSource" >
+           <property name="id" value="FdtDataSource" />
+           <property name="name" value="Base des feuilles de tournees DansMaRue" />
+           <property name="targetIndexName" value="feuilleDeTournee" />
+           <property name="fullIndexingDaemon" value="true" />
+           <property name="mappings">
+               <value><![CDATA[
+{
+ "mappings": {
+    "properties": {
+      "location": {
+        "type": "geo_point"
+      },
+      "timestamp": {
+        "format": "epoch_millis",
+        "type": "date"
+      },
+      "timestampPriseEnCompte": {
+        "format": "epoch_millis",
+        "type": "date"
+      },
+      "timestampCloture": {
+        "format": "epoch_millis",
+        "type": "date"
+      }
+    }
+  }
+}
+]]>
+            </value>
+           </property>
+       </bean>
 
 
 </beans>
