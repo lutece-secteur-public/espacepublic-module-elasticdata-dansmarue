@@ -41,7 +41,7 @@
        <bean id="elasticdata-dansmarue.fdtDataSource" class="fr.paris.lutece.plugins.elasticdata.modules.dansmarue.business.FdtDataSource" >
            <property name="id" value="FdtDataSource" />
            <property name="name" value="Base des feuilles de tournees DansMaRue" />
-           <property name="targetIndexName" value="feuilleDeTournee" />
+           <property name="targetIndexName" value="feuilledetournee" />
            <property name="fullIndexingDaemon" value="true" />
            <property name="mappings">
                <value><![CDATA[
