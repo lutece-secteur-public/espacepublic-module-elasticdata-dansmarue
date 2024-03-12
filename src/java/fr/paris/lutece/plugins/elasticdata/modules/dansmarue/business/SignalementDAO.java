@@ -58,7 +58,7 @@ public class SignalementDAO
             + " id_mail_service_fait, executeur_service_fait, se.date_derniere_action, date_prevu_traitement, se.commentaire_agent_terrain, executeur_rejet, "
             + " executeur_mise_surveillance, nb_requalifications, to_char(ss.service_fait_date_passage,'HH24:MI') heure_sf, executeur_requalification, executeur_requalification_bis, premier_id_type_signalement, premier_direction, se.precision_terrain, "
             + " TO_CHAR(ss.date_creation, 'dd/mm/yyyy ; HH24:MI:SS') as ts_creation, "
-            + " TO_CHAR(dateHistory.date_cloture, 'dd/mm/yyyy ; HH24:MI:SS') as ts_date_closure, "
+            + " TO_CHAR(dateHistory.date_cloture, 'dd/mm/yyyy ; HH24:MI:SS') as ts_date_cloture, "
             + " TO_CHAR(lastAction.date_derniere_action, 'dd/mm/yyyy ; HH24:MI:SS') as ts_date_derniere_action, "
             + " TO_CHAR(ss.date_prevue_traitement, 'dd/mm/yyyy ; HH24:MI:SS') as ts_prevue_traitement, "
             + " TO_CHAR(ss.courriel_date, 'dd/mm/yyyy ; HH24:MI:SS') as ts_courriel_date, "
@@ -138,6 +138,12 @@ public class SignalementDAO
                 signalement.setPremierIdTypeSignalement( daoUtil.getInt( 39 ) );
                 signalement.setPremiereDirection( daoUtil.getString( 40 ) );
                 signalement.setPrecisionTerrain( daoUtil.getString( 41 ) );
+                signalement.setTsDateCreation( daoUtil.getString( 42 ) );
+                signalement.setTsDateCloture( daoUtil.getString( 43 ) );
+                signalement.setTsDateDerniereAction( daoUtil.getString( 44 ) );
+                signalement.setTsDatePrevuTraitement( daoUtil.getString( 45 ) );
+                signalement.setTsDateEnvoiCourriel( daoUtil.getString( 46 ) );
+                signalement.setTsDateServiceFaitDatePassage( daoUtil.getString( 47 ) );
 
                 signalement.setColonneVide1( StringUtils.EMPTY );
                 signalement.setColonneVide2( StringUtils.EMPTY );
