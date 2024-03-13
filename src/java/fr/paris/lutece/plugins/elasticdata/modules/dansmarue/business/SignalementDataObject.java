@@ -91,6 +91,14 @@ public class SignalementDataObject extends AbstractDataObject
     private String _strColonneVide4 = "";
     private String _strColonneVide5 = "";
 
+    // BDAT-338 : ajout des dates création, cloture, dernière action, date prévu traitement, date envoi courriel, service fait comme timestamp JJ/MM/AAAA ; HH:MM:SS
+    private String _strTsDateCreation;
+    private String _strTsDateCloture;
+    private String _strTsDateDerniereAction;
+    private String _strTsDatePrevuTraitement;
+    private String _strTsDateEnvoiCourriel;
+    private String _strTsDateServiceFaitDatePassage;
+
     /**
      *
      * @return _nIdSignalement
@@ -840,4 +848,52 @@ public class SignalementDataObject extends AbstractDataObject
         _strPremiereDirection = premiereDirection;
     }
 
+
+    public void setTsDateCreation(String tsDateCreation) {
+        this._strTsDateCreation = tsDateCreation;
+    }
+
+    public void setTsDateCloture(String tsDateCloture) {
+        this._strTsDateCloture = tsDateCloture;
+    }
+
+    public void setTsDateDerniereAction(String tsDateDerniereAction) {
+        this._strTsDateDerniereAction = tsDateDerniereAction;
+    }
+
+    public void setTsDatePrevuTraitement(String tsDatePrevuTraitement) {
+        this._strTsDatePrevuTraitement = tsDatePrevuTraitement;
+    }
+
+    public void setTsDateEnvoiCourriel(String tsDateEnvoiCourriel) {
+        this._strTsDateEnvoiCourriel = tsDateEnvoiCourriel;
+    }
+
+    public void setTsDateServiceFaitDatePassage(String tsDateServiceFaitDatePassage) {
+        this._strTsDateServiceFaitDatePassage = tsDateServiceFaitDatePassage;
+    }
+
+    public String getTsDateCreation() {
+        return this._strTsDateCreation ;
+    }
+
+    public String getTsDateCloture() {
+        return this._strTsDateCloture ;
+    }
+
+    public String getTsDateDerniereAction() {
+        return this._strTsDateDerniereAction;
+    }
+
+    public String getTsDatePrevuTraitement() {
+        return this._strTsDatePrevuTraitement;
+    }
+
+    public String getTsDateEnvoiCourriel() {
+        return this._strTsDateEnvoiCourriel;
+    }
+
+    public String getTsDateServiceFaitDatePassage() {
+        return this._strTsDateServiceFaitDatePassage ;
+    }
 }
