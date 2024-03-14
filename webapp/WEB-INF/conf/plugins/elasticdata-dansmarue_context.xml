@@ -22,6 +22,19 @@
         "format": "epoch_millis",
         "type": "date"
       },
+      "tsDateServiceFaitDatePassage": {
+        "format": "date_hour_minute_second",
+        "type": "date"
+      },
+      "tsDateEnvoiCourriel": {
+        "format": "dd/MM/yyyy ; HH:mm:ss",
+        "type": "date"
+      },
+      "tsDatePrevuTraitement": {
+        "format": "dd-MM-yyyy HH:mm:ss",
+        "type": "date"
+      },
+
       "timestampPriseEnCompte": {
         "format": "epoch_millis",
         "type": "date"
@@ -55,6 +68,19 @@
         "format": "epoch_millis",
         "type": "date"
       },
+      "tsDateServiceFaitDatePassage": {
+        "format": "date_hour_minute_second",
+        "type": "date"
+      },
+      "tsDateEnvoiCourriel": {
+        "format": "dd/MM/yyyy ; HH:mm:ss",
+        "type": "date"
+      },
+      "tsDatePrevuTraitement": {
+        "format": "dd-MM-yyyy HH:mm:ss",
+        "type": "date"
+      },
+
       "timestampPriseEnCompte": {
         "format": "epoch_millis",
         "type": "date"

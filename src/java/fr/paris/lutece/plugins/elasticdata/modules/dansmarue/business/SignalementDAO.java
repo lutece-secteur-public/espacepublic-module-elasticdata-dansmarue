@@ -146,8 +146,9 @@ public class SignalementDAO
                 signalement.setTsDateServiceFaitDatePassage( daoUtil.getString( 47 ) );
 
                 // Test DATA TYPE TIMESTAMP
-                signalement.setTsDateEnvoiCourriel( "2024-03-14T11:44:039CET"); //yyyy-MM-dd'T'HH:mm:sssz
-                signalement.setTsDateServiceFaitDatePassage( "2024-03-14T11:44:39"); //yyyy-MM-dd'T'HH:mm:ss
+                signalement.setTsDateEnvoiCourriel( "14/03/2024 ; 11:44:39");
+                signalement.setTsDateServiceFaitDatePassage( "2024-03-14T11:44:39");
+                signalement.setTsDatePrevuTraitement(  "13-03-2024 11:44:39" );
 
                 signalement.setColonneVide1( StringUtils.EMPTY );
                 signalement.setColonneVide2( StringUtils.EMPTY );
