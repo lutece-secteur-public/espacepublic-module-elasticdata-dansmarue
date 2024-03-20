@@ -22,6 +22,31 @@
         "format": "epoch_millis",
         "type": "date"
       },
+      "tsDateCreation": {
+        "format": "date_hour_minute_second",
+        "type": "date"
+      },
+      "tsDateCloture": {
+        "format": "date_hour_minute_second",
+        "type": "date"
+      },
+      "tsDateDerniereAction": {
+        "format": "date_hour_minute_second",
+        "type": "date"
+      },
+      "tsDateServiceFaitDatePassage": {
+        "format": "date_hour_minute_second",
+        "type": "date"
+      },
+      "tsDateEnvoiCourriel": {
+        "format": "date_hour_minute_second",
+        "type": "date"
+      },
+      "tsDatePrevuTraitement": {
+        "format": "date_hour_minute_second",
+        "type": "date"
+      },
+
       "timestampPriseEnCompte": {
         "format": "epoch_millis",
         "type": "date"
@@ -55,6 +80,31 @@
         "format": "epoch_millis",
         "type": "date"
       },
+            "tsDateCreation": {
+        "format": "date_hour_minute_second",
+        "type": "date"
+      },
+      "tsDateCloture": {
+        "format": "date_hour_minute_second",
+        "type": "date"
+      },
+      "tsDateDerniereAction": {
+        "format": "date_hour_minute_second",
+        "type": "date"
+      },
+      "tsDateServiceFaitDatePassage": {
+        "format": "date_hour_minute_second",
+        "type": "date"
+      },
+      "tsDateEnvoiCourriel": {
+        "format": "date_hour_minute_second",
+        "type": "date"
+      },
+      "tsDatePrevuTraitement": {
+        "format": "date_hour_minute_second",
+        "type": "date"
+      },
+
       "timestampPriseEnCompte": {
         "format": "epoch_millis",
         "type": "date"
