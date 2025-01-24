@@ -120,6 +120,65 @@
             </value>
            </property>
        </bean>
+       
+       
+       <bean id="elasticdata-dansmarue.archiveDataSource" class="fr.paris.lutece.plugins.elasticdata.modules.dansmarue.business.SignalementArchivageDataSource" >
+           <property name="id" value="SignalementArchivageDataSource" />
+           <property name="name" value="Base archivage des signalements DansMaRue" />
+           <property name="targetIndexName" value="archivage" />
+           <property name="fullIndexingDaemon" value="true" />
+           <property name="mappings">
+               <value><![CDATA[
+{
+ "mappings": {
+    "properties": {
+      "location": {
+        "type": "geo_point"
+      },
+      "timestamp": {
+        "format": "epoch_millis",
+        "type": "date"
+      },
+      "tsDateCreation": {
+        "format": "date_hour_minute_second",
+        "type": "date"
+      },
+      "tsDateCloture": {
+        "format": "date_hour_minute_second",
+        "type": "date"
+      },
+      "tsDateDerniereAction": {
+        "format": "date_hour_minute_second",
+        "type": "date"
+      },
+      "tsDateServiceFaitDatePassage": {
+        "format": "date_hour_minute_second",
+        "type": "date"
+      },
+      "tsDateEnvoiCourriel": {
+        "format": "date_hour_minute_second",
+        "type": "date"
+      },
+      "tsDatePrevuTraitement": {
+        "format": "date_hour_minute_second",
+        "type": "date"
+      },
+
+      "timestampPriseEnCompte": {
+        "format": "epoch_millis",
+        "type": "date"
+      },
+      "timestampCloture": {
+        "format": "epoch_millis",
+        "type": "date"
+      }
+    }
+  }
+}
+]]>
+            </value>
+           </property>
+       </bean>
 
 
 </beans>
