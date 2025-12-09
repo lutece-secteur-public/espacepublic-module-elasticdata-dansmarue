@@ -62,6 +62,10 @@ public class SignalementArchivageDataSource extends AbstractDataSource
     @Override
     public List<DataObject> getDataObjects( List<String> listIdDataObjects )
     {
+        if(listIdDataObjects.isEmpty( )) {
+            return new ArrayList<>( );
+        }
+
         SignalementDAO dao = new SignalementDAO( );
         return dao.selectSignalementDataObjectsList( _plugin, null, listIdDataObjects );
 

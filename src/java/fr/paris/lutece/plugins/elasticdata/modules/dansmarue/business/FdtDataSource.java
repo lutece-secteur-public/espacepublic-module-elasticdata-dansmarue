@@ -57,6 +57,10 @@ public class FdtDataSource extends AbstractDataSource
     @Override
     public List<DataObject> getDataObjects( List<String> list )
     {
+        if(list.isEmpty( )){
+            return List.of( );
+        }
+
         FdtDAO dao = new FdtDAO( );
         return dao.selectFdtDataObjectsList( _plugin, list );
 
