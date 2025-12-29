@@ -46,6 +46,8 @@ public class SignalementArchivageDataObject extends SignalementDataObject
     private String _strPhotoEnsembleMiniature;
     private String _strPhotoServiceFait;
     private String _strPhotoServiceFaitMiniature;
+    private String _strPhotoServiceFait2;
+    private String _strPhotoServiceFaitMiniature2;
 
 
     public String getPhotoPres( )
@@ -71,6 +73,14 @@ public class SignalementArchivageDataObject extends SignalementDataObject
     public String getPhotoServiceFaitMiniature( )
     {
         return _strPhotoServiceFaitMiniature;
+    }
+    public String getPhotoServiceFait2( )
+    {
+        return _strPhotoServiceFait2;
+    }
+    public String getPhotoServiceFaitMiniature2( )
+    {
+        return _strPhotoServiceFaitMiniature2;
     }
 
 
@@ -99,6 +109,14 @@ public class SignalementArchivageDataObject extends SignalementDataObject
     public void setPhotoServiceFaitMiniature( String strPhotoServiceFaitMiniature )
     {
         _strPhotoServiceFaitMiniature = strPhotoServiceFaitMiniature;
+    }
+    public void setPhotoServiceFait2( String strPhotoServiceFait )
+    {
+        _strPhotoServiceFait2 = strPhotoServiceFait;
+    }
+    public void setPhotoServiceFaitMiniature2( String strPhotoServiceFaitMiniature )
+    {
+        _strPhotoServiceFaitMiniature2 = strPhotoServiceFaitMiniature;
     }
 
 
