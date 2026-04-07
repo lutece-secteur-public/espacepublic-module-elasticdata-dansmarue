@@ -53,7 +53,7 @@ public class SignalementDAO
     private static final String SQL_QUERY_SELECTALL_ID_SIGNALEMENT = "SELECT id_signalement FROM signalement_export";
 
     private static final String SQL_QUERY_SELECTALL = "SELECT ss.id_signalement, se.numero, priorite, type_signalement, alias, alias_mobile, direction, quartier, adresse, coord_x, coord_y, "
-            + " arrondissement, secteur, se.date_creation, heure_creation, etat, mail_usager, commentaire_usager, nb_photos, raisons_rejet, "
+            + " arrondissement, secteur, to_char(se.date_creation, 'DD/MM/YYYY'), heure_creation, etat, mail_usager, commentaire_usager, nb_photos, raisons_rejet, "
             + " nb_suivis, nb_felicitations, se.date_cloture, is_photo_service_fait, mail_destinataire_courriel, se.courriel_expediteur, date_envoi_courriel, "
             + " id_mail_service_fait, executeur_service_fait, se.date_derniere_action, date_prevu_traitement, se.commentaire_agent_terrain, executeur_rejet, "
             + " executeur_mise_surveillance, nb_requalifications, to_char(ss.service_fait_date_passage,'HH24:MI') heure_sf, executeur_requalification, executeur_requalification_bis, premier_id_type_signalement, premier_direction, se.precision_terrain, "
@@ -144,7 +144,7 @@ public class SignalementDAO
                 signalement.setTsDatePrevuTraitement( daoUtil.getString( 45 ) );
                 signalement.setTsDateEnvoiCourriel( daoUtil.getString( 46 ) );
                 signalement.setTsDateServiceFaitDatePassage( daoUtil.getString( 47 ) );
-                
+
                 signalement.setColonneVide1( StringUtils.EMPTY );
                 signalement.setColonneVide2( StringUtils.EMPTY );
                 signalement.setColonneVide3( StringUtils.EMPTY );
